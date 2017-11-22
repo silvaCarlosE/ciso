@@ -1,0 +1,113 @@
+﻿@using PrjIntegrado.Models;
+
+@model List<Tecnico>
+@{
+    Layout = null;
+}
+
+@RenderPage("~/Views/Shared/Header.cshtml")
+@RenderPage("~/Views/Shared/Menu.cshtml")
+
+
+<div class="col-md-10 col-sm-10 col-xs-8">
+    <div class="content">
+        <div class="title">
+            <h2>
+                Técnicos
+            </h2>
+        </div>
+        <form action="@Url.Action("Search", "Tecnico")" method="post">
+            <div class="input col-md-5">
+                <input type="text" name="nome" class="form-control">
+            </div>
+            <div>
+                <button type="submit" name="buscaNome" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </form>
+        <hr>
+        <div>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Alterar</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (((List<Tecnico>)ViewBag.List).Count() == 0)
+                    {
+                        <div class="alert alert-info">
+				            <p>Não existe nenhum técnico cadastrado. </p>
+			            </div>
+                    }
+                    @foreach (var item in (List<Tecnico>)ViewBag.List)
+                    {
+                        <tr>
+                            <td>@item.Nome</td>
+                            <td>@item.Cpf</td>
+                            <td style="text-align: center">                                
+                                <form action="@Url.Action("Update", "Tecnico", new {id = item.Id})" method="post">
+                                    <input type="hidden" name="excluir" value="@item.Id" />
+                                    <button type="submit" name="atualizar" class="btn btn-warning" item-id="@item.Id">
+                                        <span class="glyphicon glyphicon-edit"></span> Editar
+                                    </button>
+                                </form>
+                            </td>
+                            <td style="text-align: center">
+                                <form action="@Url.Action("Delete", "Tecnico")" method="post">
+                                    <input type="hidden" value="@item.Id" name="excluir" />
+                                    <button type="submit" onclick="excluir()" name="excluir" id="exclude-button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir">
+                                        <span class="glyphicon glyphicon-trash"></span> Excluir
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdicionar" alt="Adicionar">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdicionar" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Adicionar Técnico</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("Insert", "Tecnico")" method="POST" class="form-group" onsubmit="validate()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="" width="70%">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input type="hidden" id="edit-tecnico" name="id_tecnico" value="">
+                                <label for="nome">Nome</label>
+                                <input class="form-control" required maxlength="45" type="text" name="nome">
+                                <label for="nome">CPF</label>
+                                <input class="form-control" required maxlength="45" type="text" name="cpf">
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
+                        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@RenderPage("~/Views/Shared/Footer.cshtml")

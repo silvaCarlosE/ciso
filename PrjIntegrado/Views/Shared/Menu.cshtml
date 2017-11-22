@@ -1,0 +1,98 @@
+﻿<div class="col-md-2 col-sm-2 col-xs-4 nopadding" style="border-right: 1px solid #DCDCDC">
+    <ul class="nav nav-pills nav-stacked">
+        <li role="presentation" class="active">
+            @Html.ActionLink("Início", "Index", "Home")
+            <span class="glyphicon glyphicon-home"></span> - Início
+        </li>
+
+        <li role="presentation">
+            <span class="glyphicon glyphicon-print"></span> - Impressoras
+        </li>
+
+        <li role="presentation">
+            <span class="glyphicon glyphicon-user"></span>
+            @Html.ActionLink("Técnicos", "Index", "Tecnico")
+        </li>
+
+        <li role="presentation">
+            <span class="glyphicon glyphicon-wrench"></span> - Manutenção
+        </li>
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="glyphicon glyphicon-list-alt"></span>
+                - Papel
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li role="presentation">
+                    <span class="glyphicon glyphicon-list-alt"></span> - Cadastrar papel comprado
+                </li>
+                <li role="presentation">
+                    <span class="glyphicon glyphicon-list-alt"></span> - Perda de Papel
+                </li>
+                <li role="presentation">
+                    <span class="glyphicon glyphicon-list-alt"></span> - Solicitar papel
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-list-alt"></span> - Tipos de Papel
+                </li>
+            </ul>
+        </li>
+
+        <li role="presentation">
+                <span class="glyphicon glyphicon-user"></span> - Funcionários
+        </li>
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="glyphicon glyphicon-stats"></span>
+                - Relatórios
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li role="presentation">
+                    <span class="glyphicon glyphicon-stats"></span> - Relatório de Gastos
+                </li>
+                <li role="presentation">
+                    <span class="glyphicon glyphicon-stats"></span> - Relatório de Perda
+                </li>
+                <li role="presentation">
+                    <span class="glyphicon glyphicon-stats"></span> - Relatório de Manutenções
+                </li>
+            </ul>
+        </li>
+
+        <li role="presentation">
+            <a type="button" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-log-in"></span> - Sair
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<style type="text/css">
+    .nopadding {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+</style>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Deseja realmente sair?</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="POST">
+                    <input type="submit" name="sair" value="Sim" class="btn btn-danger">
+                    <button type="button" class="btn" data-dismiss="modal">Não</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
