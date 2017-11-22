@@ -146,6 +146,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FuncionarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImpressoraController.cs" />
     <Compile Include="Controllers\TecnicoController.cs" />
     <Compile Include="Controllers\TipoPapelController.cs" />
     <Compile Include="DbConnection.cs" />
@@ -153,6 +154,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Funcionario.cs" />
+    <Compile Include="Models\Impressora.cs" />
     <Compile Include="Models\Loja.cs" />
     <Compile Include="Models\Perda.cs" />
     <Compile Include="Models\Tecnico.cs" />
@@ -219,6 +221,8 @@
     <Content Include="Views\TipoPapel\Index.cshtml" />
     <Content Include="Views\TipoPapel\Search.cshtml" />
     <Content Include="Views\TipoPapel\Update.cshtml" />
+    <Content Include="Views\Impressora\Index.cshtml" />
+    <Content Include="Views\Impressora\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

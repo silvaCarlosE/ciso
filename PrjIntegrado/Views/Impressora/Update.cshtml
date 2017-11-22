@@ -1,0 +1,59 @@
+﻿@using PrjIntegrado.Models;
+
+@model List<Impressora>
+
+@{
+    Layout = null;
+}
+
+@{
+    List<int> ids = new List<int>();
+    ids = (List<int>)ViewData["lojas"];
+    Impressora aux = new Impressora();
+    aux = (Impressora)ViewData["Impressora"];
+}
+
+@RenderPage("~/Views/Shared/Header.cshtml")
+@RenderPage("~/Views/Shared/Menu.cshtml")
+
+<form action="@Url.Action("Save", "Impressora")" method="POST" class="form-group" id="editing">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="" width="70%">
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <input type="hidden" id="edit-id" name="id_impressora" value="@aux.Id">
+                <label for="nome">Nome</label>
+                <input class="form-control" required maxlength="45" type="text" name="nome" value="@aux.Nome" maxlength="20">
+                <label for="marca">Marca</label>
+                <input class="form-control" required maxlength="45" type="text" name="marca" value="@aux.Marca" maxlength="20">
+                <label for="tipo-tinta">Tipo de tinta</label>
+                <input class="form-control" required maxlength="45" type="text" name="tipo-tinta" value="@aux.Tipo_tinta" maxlength="20">
+                <input type="hidden" name="idloja" value="@aux.Id_loja" />
+                <label for="id-loja">Id da loja</label>
+                <select class="form-control" required name="id-loja">
+                    @foreach (var item in ids)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                    <option value="value"></option>
+                </select>
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <div class="padding">
+        <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
+        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+    </div>
+</form>
+@RenderPage("~/Views/Shared/Footer.cshtml")
+
+<script type="text/javascript">
+    var form = document.getElementById('editing');
+    form.addEventListener('ValueChange', function () {
+        var id = document.getElementById('edit-id').value;
+        console.log(id);
+    });
+</script>

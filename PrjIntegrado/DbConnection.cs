@@ -171,7 +171,6 @@ namespace PrjIntegrado
                 try
                 {
                     string query = "SELECT * " + " FROM " + table + " WHERE " + like;
-                    MessageBox.Show(query);
                     MySqlCommand stmt = new MySqlCommand(query, connection);
                     MySqlDataReader reader = stmt.ExecuteReader();
                     return reader;
