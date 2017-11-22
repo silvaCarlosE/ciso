@@ -24,29 +24,32 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Update(System.Web.Mvc.FormCollection collection)
         {
-            Tecnico aux = new Tecnico();
+            TipoPapel aux = new TipoPapel();
             aux = aux.selectById(int.Parse(collection[0]));
-            ViewData["Tecnico"] = aux;
-            return View(aux);
+            ViewData["TipoPapel"] = aux;
+           
+            return View();
         }
 
         [HttpPost]
         public ActionResult Delete(System.Web.Mvc.FormCollection collection)
         {
             int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
-            Tecnico aux = new Tecnico();
+            TipoPapel aux = new TipoPapel();
             bool result;
-            result = aux.DeleteTecnico(idToExclude);
+            result = aux.DeleteTipoPapel(idToExclude);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Save(System.Web.Mvc.FormCollection collection)
         {
-            Tecnico aux = new Tecnico();
+            TipoPapel aux = new TipoPapel();
             aux.Id = int.Parse(collection[0]);
-            aux.Nome = collection[1];
-            aux.Cpf = collection[2];
+            aux.Tipo = collection[1];
+            aux.Tamanho = collection[2];
+            aux.Gramatura= int.Parse(collection[3]);
+           
             bool result = aux.Update(aux);
             return RedirectToAction("Index");
         }
@@ -54,9 +57,11 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Insert(System.Web.Mvc.FormCollection collection)
         {
-            Tecnico aux = new Tecnico();
-            aux.Nome = collection[1];
-            aux.Cpf = collection[2];
+            TipoPapel aux = new TipoPapel();
+            
+            aux.Tipo = collection[1];
+            aux.Tamanho = collection[2];
+            aux.Gramatura = int.Parse(collection[3]);
             bool result;
             result = aux.Insert(aux);
             return RedirectToAction("Index");
@@ -65,12 +70,11 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Search(System.Web.Mvc.FormCollection collection)
         {
-            string nome = collection[0];
-            Tecnico aux = new Tecnico();
-            List<Tecnico> list = new List<Tecnico>();
-            list = aux.getTecnicos(nome);
-            ViewBag.List = list;
-            return View(list);
+            TipoPapel aux = new TipoPapel();
+            aux = aux.selectById(int.Parse(collection[0]));
+            ViewData["TipoPapel"] = aux;
+
+            return View();
         }
     }
 }
