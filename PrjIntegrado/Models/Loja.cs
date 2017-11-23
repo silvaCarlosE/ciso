@@ -23,6 +23,7 @@ namespace PrjIntegrado.Models
                 while (result.Read())
                 {
                     Loja aux = new Loja();
+                    aux.LojaID = result.GetString(0);
                     aux.Endereco = result.GetString(1);
                     aux.CNPJ = result.GetString(2);
                     lojas.Add(aux);

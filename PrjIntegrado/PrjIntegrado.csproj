@@ -54,8 +54,8 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=6.10.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.4\lib\net452\MySql.Data.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Nova pasta\PrjIntegrado\PrjIntegrado\PrjIntegrado\bin\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -247,6 +247,7 @@
     <Content Include="Views\Impressora\Update.cshtml" />
     <Content Include="Views\Manutencao\Index.cshtml" />
     <Content Include="Views\Manutencao\Update.cshtml" />
+    <Content Include="Views\Funcionario\Update.cshtml" />
     <Content Include="Views\Perda\Index.cshtml" />
     <Content Include="Views\Perda\Update.cshtml" />
   </ItemGroup>
