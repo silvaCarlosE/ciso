@@ -2,21 +2,17 @@
     <ul class="nav nav-pills nav-stacked">
         <li role="presentation" class="active">
             @Html.ActionLink("Início", "Index", "Home")
-            <span class="glyphicon glyphicon-home"></span> - Início
         </li>
 
         <li role="presentation">
-            <span class="glyphicon glyphicon-print"></span> - Impressoras
             @Html.ActionLink("Impressoras", "Index", "Impressora")
         </li>
 
         <li role="presentation">
-            <span class="glyphicon glyphicon-user"></span>
             @Html.ActionLink("Técnicos", "Index", "Tecnico")
         </li>
 
         <li role="presentation">
-            <span class="glyphicon glyphicon-wrench"></span> - Manutenção
             @Html.ActionLink("Manutenções", "Index", "Manutencao")
         </li>
 
@@ -28,28 +24,28 @@
             </a>
             <ul class="dropdown-menu">
                 <li role="presentation">
-                    <span class="glyphicon glyphicon-list-alt"></span> - Cadastrar papel comprado
+                     Cadastrar papel comprado
                 </li>
                 <li role="presentation">
-                    <span class="glyphicon glyphicon-list-alt"></span> - Perda de Papel
+                     @Html.ActionLink("Perdas de papel", "Index", "Perda")
                 </li>
                 <li role="presentation">
-                    <span class="glyphicon glyphicon-list-alt"></span> - Solicitar papel
+                     Solicitar papel
                 </li>
                 <li>
-                    <span class="glyphicon glyphicon-list-alt"></span> - Tipos de Papel
+                     @Html.ActionLink("Tipos de papel", "Index", "TipoPapel")
                 </li>
             </ul>
         </li>
 
         <li role="presentation">
-                <span class="glyphicon glyphicon-user"></span> - Funcionários
+            @Html.ActionLink("Funcionários", "Index", "Funcionario")
         </li>
 
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <span class="glyphicon glyphicon-stats"></span>
-                - Relatórios
+                Relatórios
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">

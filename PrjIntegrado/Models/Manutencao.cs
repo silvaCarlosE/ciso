@@ -31,7 +31,7 @@ namespace PrjIntegrado.Models
                     aux.Data = result.GetString(2);
                     aux.Id_tecnico = result.GetInt32(3);
                     aux.Id_impressora = result.GetInt32(4);
-                    aux.Valor_gasto = result.GetDouble(4);
+                    aux.Valor_gasto = result.GetDouble(5);
                     manutencao.Add(aux);
                 }
             }
@@ -55,7 +55,7 @@ namespace PrjIntegrado.Models
                     aux.Data = result.GetString(2);
                     aux.Id_tecnico = result.GetInt32(3);
                     aux.Id_impressora = result.GetInt32(4);
-                    aux.Valor_gasto = result.GetDouble(4);
+                    aux.Valor_gasto = result.GetDouble(5);
                     manutencao.Add(aux);
                 }
             }
@@ -88,7 +88,7 @@ namespace PrjIntegrado.Models
                 aux.Data = result.GetString(2);
                 aux.Id_tecnico = result.GetInt32(3);
                 aux.Id_impressora = result.GetInt32(4);
-                aux.Valor_gasto = result.GetDouble(4);
+                aux.Valor_gasto = result.GetDouble(5);
             }
             return aux;
         }

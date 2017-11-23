@@ -8,7 +8,8 @@ using System.Web;
 namespace PrjIntegrado.Models
 {
     public class TipoPapel
-    {   public int Id { get; set; }
+    {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Campo Tipo é obrigatório")]
         public string Tipo { get; set; }
         [Required(ErrorMessage = "Campo Tamanho é obrigatório")]
@@ -30,8 +31,8 @@ namespace PrjIntegrado.Models
                     TipoPapel aux = new TipoPapel();
                     aux.Id = result.GetInt32(0);
                     aux.Tipo = result.GetString(1);
-                    aux.Tamanho = result.GetString(1);
-                    aux.Gramatura = result.GetInt32(2);
+                    aux.Tamanho = result.GetString(2);
+                    aux.Gramatura = result.GetInt32(3);
                     tipo_papel.Add(aux);
                 }
             }
@@ -52,8 +53,8 @@ namespace PrjIntegrado.Models
                     TipoPapel aux = new TipoPapel();
                     aux.Id = result.GetInt32(0);
                     aux.Tipo = result.GetString(1);
-                    aux.Tamanho = result.GetString(1);
-                    aux.Gramatura = result.GetInt32(2);
+                    aux.Tamanho = result.GetString(2);
+                    aux.Gramatura = result.GetInt32(3);
                     tipo_papel.Add(aux);
                 }
             }
@@ -83,19 +84,23 @@ namespace PrjIntegrado.Models
                 result.Read();
                 aux.Id = result.GetInt32(0);
                 aux.Tipo = result.GetString(1);
-                aux.Tamanho = result.GetString(1);
-                aux.Gramatura = result.GetInt32(2);
-                
+                aux.Tamanho = result.GetString(2);
+                aux.Gramatura = result.GetInt32(3);
+
             }
             return aux;
         }
 
-        internal bool Insert(TipoPapel aux)
+        
+
+        internal bool Insert( TipoPapel aux)
         {
             DbConnection dbConnection = new DbConnection();
             string table = "tipo_papel ";
-            string fields = "tipo, tamanho";
-            string values = "'" + aux.Tipo + "'" + ", " + "'" + aux.Tamanho + "'";
+            string fields = "tipo, tamanho,gramatura ";
+            string values = "'" + aux.Tipo + "'";
+                   values += ", " + "'" + aux.Tamanho + "'";
+                   values += ", " + aux.Gramatura;
             dbConnection.Insert(table, fields, values);
             return true;
         }
@@ -103,8 +108,12 @@ namespace PrjIntegrado.Models
         public bool Update(TipoPapel aux)
         {
             DbConnection dbConnection = new DbConnection();
-            string table = "tipo_papel";
-            string fields = "tipo = '" + aux.Tipo + "', tamanho = '" + aux.Tamanho + "'";
+            string table = "tipo_papel ";
+            
+            string fields = "tipo = '" + aux.Tipo;
+            fields += "', tamanho = '" + aux.Tamanho + "'";
+            fields += ", gramatura = " + aux.Gramatura;
+           
             string condition = "id_tipo_papel = " + (aux.Id.ToString());
             dbConnection.Update(table, fields, condition);
             return true;

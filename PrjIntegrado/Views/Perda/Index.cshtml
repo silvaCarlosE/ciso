@@ -1,0 +1,151 @@
+﻿@using PrjIntegrado.Models;
+
+@model List<Perda>
+
+@{
+    Layout = null;
+}
+
+@{
+    List<Funcionario> funcionarios = new List<Funcionario>();
+    List<TipoPapel> tipo_papel = new List<TipoPapel>();
+
+    funcionarios = (List<Funcionario>)ViewData["funcionarios"];
+    tipo_papel = (List<TipoPapel>)ViewData["tiposPapel"];
+}
+
+@RenderPage("~/Views/Shared/Header.cshtml")
+@RenderPage("~/Views/Shared/Menu.cshtml")
+
+
+<div class="col-md-10 col-sm-10 col-xs-8">
+    <div class="content">
+        <div class="title">
+            <h2>
+                Perdas
+            </h2>
+        </div>
+        <form action="@Url.Action("Search", "Perda")" method="post">
+            <div class="input col-md-5">
+                <input type="text" name="nome" class="form-control">
+            </div>
+            <div>
+                <button type="submit" name="buscaDefeito" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </form>
+        <hr>
+        <div>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Quantidade</th>
+                        <th>Data</th>
+                        <th>Tipo de papel</th>
+                        <th>Funcionário</th>
+                        <th>Alterar</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (((List<Perda>)ViewBag.List).Count() == 0)
+                    {
+                        <div class="alert alert-info">
+                            <p>Não existe nenhuma manutenção cadastrada. </p>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Perda>)ViewBag.List)
+                        {
+                            <tr>
+                                <td>@item.Quantidade</td>
+                                <td>@item.Data</td>
+                                <td>@item.Id_tipo_papel</td>
+                                <td>@item.Id_funcionario</td>
+                                <td style="text-align: center">
+                                    <form action="@Url.Action("Update", "Perda", new {id = item.Id})" method="post">
+                                        <input type="hidden" name="excluir" value="@item.Id" />
+                                        <button type="submit" name="atualizar" class="btn btn-warning" item-id="@item.Id">
+                                            <span class="glyphicon glyphicon-edit"></span> Editar
+                                        </button>
+                                    </form>
+                                </td>
+                                <td style="text-align: center">
+                                    <form action="@Url.Action("Delete", "Perda")" method="post">
+                                        <input type="hidden" value="@item.Id" name="excluir" />
+                                        <button type="submit" onclick="excluir()" name="excluir" id="exclude-button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir">
+                                            <span class="glyphicon glyphicon-trash"></span> Excluir
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modalAdicionar" alt="Adicionar">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdicionar" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Adicionar Perda</h4>
+            </div>
+            <div class="modal-body">
+                @if (ViewData["errorMsg"].Equals(""))
+                {
+                    <p class="alert alert-info">@ViewData["errorMsg"]</p>
+                }
+                
+                <form action="@Url.Action("Insert", "Perda")" method="POST" class="form-group" onsubmit="validate()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="" width="70%">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input type="hidden" id="edit-manutencao" name="id_manutencao" value="">
+                                <label for="quantidade">Quantidade</label>
+                                <input class="form-control" required maxlength="45" type="number" name="quantidade" maxlength="20">
+
+                                <label for="data">Data</label>
+                                <input class="form-control" required maxlength="45" type="date" name="data" maxlength="20">
+
+                                <label for="id-tipo">Tipo de papel</label>
+                                <select name="tipo_papel" class="form-control" required>
+                                    @foreach (var tipo in tipo_papel)
+                                    {
+                                        <option value="@tipo.Id">@tipo.Tipo</option>
+                                    }
+                                </select>
+
+                                <label for="id-funcionario">Funcionário</label>
+                                <select name="funcionarios" class="form-control" required>
+                                    @foreach (var funcionario in funcionarios)
+                                    {
+                                        <option value="@funcionario.FuncionarioID">@funcionario.Nome</option>
+                                    }
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
+                        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+
+@RenderPage("~/Views/Shared/Footer.cshtml")
