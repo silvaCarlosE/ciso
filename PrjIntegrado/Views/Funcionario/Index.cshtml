@@ -5,12 +5,13 @@
     Layout = null;
 }
 
-@*@{
-        //List<Funcionario> list = new List<Funcionario>();
-        Funcionario funcionario = new Funcionario();
-        ViewData["list"] = funcionario.getFuncionarios();
+@{
+    List<Funcionario> list = new List<Funcionario>();
+    List<Loja> listaLojas = new List<Loja>();
 
-    }*@
+    list = (List<Funcionario>)ViewData["list"];
+    listaLojas = (List<Loja>)ViewData["listaLojas"];
+}
 
 @RenderPage("~/Views/Shared/Header.cshtml")
 @RenderPage("~/Views/Shared/Menu.cshtml")
@@ -45,7 +46,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in ViewBag.Func)
+                    @foreach (var item in list)
                     {
                         <tr>
                             <td>@item.Nome</td>
@@ -53,9 +54,9 @@
                             <td>@item.Cargo</td>
                             <td>@item.LojaFuncionarioID</td>
                             <td style="text-align: center">
-                                <form method="GET">
-                                    <input type="hidden" name="id-atualizar" value="@item.FuncionarioID">
-                                    <button type="submit" name="atualizar" class="btn btn-warning" name="@item.FuncionarioID" onclick="editar();">
+                                <form action="@Url.Action("Update", "Funcionario", new {id = item.FuncionarioID})" method="post">
+                                    <input type="hidden" name="excluir" value="@item.FuncionarioID" />
+                                    <button type="submit" name="atualizar" class="btn btn-warning" item-id="@item.FuncionarioID">
                                         <span class="glyphicon glyphicon-edit"></span> Editar
                                     </button>
                                 </form>
@@ -94,15 +95,19 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <input type="hidden" name="id_funcionario" value="">
+
                                 <label for="nome">Nome</label>
                                 <input class="form-control" required maxlength="45" type="text" name="nome">
-                                <label for="nome">CPF</label>
+
+                                <label for="CPF">CPF</label>
                                 <input class="form-control" required maxlength="45" type="text" name="cpf">
-                                <label for="nome">Cargo</label>
-                                <input class="form-control" required maxlength="45" type="text" name="carrgo">
-                                <label for="nome">Loja</label>
-                                <select>
-                                    @foreach (var item in ViewBag.List)
+
+                                <label for="Cargo">Cargo</label>
+                                <input class="form-control" required maxlength="45" type="text" name="cargo">
+
+                                <label for="Loja">Loja</label>
+                                <select class="form-control" name="IdLoja">
+                                    @foreach (var item in listaLojas)
                                     {
                                         <option value="@item.LojaID">@item.LojaID</option>
                                     }
