@@ -5,6 +5,13 @@
     Layout = null;
 }
 
+@*@{
+        //List<Funcionario> list = new List<Funcionario>();
+        Funcionario funcionario = new Funcionario();
+        ViewData["list"] = funcionario.getFuncionarios();
+
+    }*@
+
 @RenderPage("~/Views/Shared/Header.cshtml")
 @RenderPage("~/Views/Shared/Menu.cshtml")
 <div class="col-md-10 col-sm-10 col-xs-8">
@@ -38,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in (List<Funcionario>)ViewBag.List)
+                    @foreach (var item in ViewBag.Func)
                     {
                         <tr>
                             <td>@item.Nome</td>
@@ -93,8 +100,13 @@
                                 <input class="form-control" required maxlength="45" type="text" name="cpf">
                                 <label for="nome">Cargo</label>
                                 <input class="form-control" required maxlength="45" type="text" name="carrgo">
-                                @*<label for="nome">Loja</label>
-                                <input class="form-control" required maxlength="45" type="text" name="loja">*@
+                                <label for="nome">Loja</label>
+                                <select>
+                                    @foreach (var item in ViewBag.List)
+                                    {
+                                        <option value="@item.LojaID">@item.LojaID</option>
+                                    }
+                                </select>
                             </div>
                             <br><br>
                         </div>

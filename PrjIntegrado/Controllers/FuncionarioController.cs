@@ -15,8 +15,20 @@ namespace PrjIntegrado.Controllers
             Funcionario aux = new Funcionario();
             List<Funcionario> list = new List<Funcionario>();
             list = aux.getFuncionarios();
-            ViewBag.List = list;
+            //ViewData["list"] = list;
+            ViewBag.Func = list;
+
+            Loja auxLoja = new Loja();
+
+            List<Loja> listaLojas = new List<Loja>();
+            listaLojas = auxLoja.getLojas();
+
+            //Descobrir como passar o parametro
+            ViewBag.List = listaLojas;
+
             return View(list);
+
+
         }
 
 
@@ -24,10 +36,12 @@ namespace PrjIntegrado.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Create(System.Web.Mvc.FormCollection collection)
         {
+
+
             Funcionario funcionario = new Funcionario();
             funcionario.Nome = collection[1];
             funcionario.CPF = collection[2];
