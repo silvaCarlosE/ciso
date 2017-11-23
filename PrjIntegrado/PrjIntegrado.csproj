@@ -243,6 +243,7 @@
     <Content Include="Views\Manutencao\Index.cshtml" />
     <Content Include="Views\Manutencao\Update.cshtml" />
     <Content Include="Views\Perda\Index.cshtml" />
+    <Content Include="Views\Perda\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

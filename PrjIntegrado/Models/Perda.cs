@@ -151,7 +151,9 @@ namespace PrjIntegrado.Models
                 {
                     TipoPapel aux = new TipoPapel();
                     aux.Id = result.GetInt32(0);
-                    aux.Gramatura = result.GetInt32(1);
+                    aux.Tipo = result.GetString(1);
+                    aux.Tamanho = result.GetString(2);
+                    aux.Gramatura = result.GetInt32(3);
                     tipos.Add(aux);
                 }
             }

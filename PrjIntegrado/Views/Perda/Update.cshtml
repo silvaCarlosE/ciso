@@ -1,0 +1,60 @@
+﻿@using PrjIntegrado.Models;
+
+@model List<Perda>
+
+@{
+    Layout = null;
+}
+
+@{
+    Perda aux = new Perda();
+    aux = (Perda)ViewData["Perda"];
+
+    List<Funcionario> funcionarios = new List<Funcionario>();
+    List<TipoPapel> tipo_papel = new List<TipoPapel>();
+
+    funcionarios = (List<Funcionario>)ViewData["funcionarios"];
+    tipo_papel = (List<TipoPapel>)ViewData["tiposPapel"];
+}
+
+@RenderPage("~/Views/Shared/Header.cshtml")
+@RenderPage("~/Views/Shared/Menu.cshtml")
+<form action="@Url.Action("Save", "Perda")" method="POST" class="form-group" onsubmit="validate()">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="" width="70%">
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <input type="hidden" id="edit-manutencao" name="id_manutencao" value="@aux.Id">
+                <label for="quantidade">Quantidade</label>
+                <input class="form-control" required maxlength="45" type="number" name="quantidade" maxlength="20" value="@aux.Quantidade">
+
+                <label for="data">Data</label>
+                <input class="form-control" required maxlength="45" type="date" name="data" maxlength="20" value="@aux.Data">
+
+                <label for="id-tipo">Tipo de papel</label>
+                <select name="tipo_papel" class="form-control" required>
+                    @foreach (var tipo in tipo_papel)
+                    {
+                        <option value="@tipo.Id">@tipo.Tipo</option>
+                    }
+                </select>
+
+                <label for="id-funcionario">Funcionário</label>
+                <select name="funcionarios" class="form-control" required>
+                    @foreach (var funcionario in funcionarios)
+                    {
+                        <option value="@funcionario.FuncionarioID">@funcionario.Nome</option>
+                    }
+                </select>
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <div class="padding">
+        <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
+        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+    </div>
+</form>
+ @RenderPage("~/Views/Shared/Footer.cshtml")

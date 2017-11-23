@@ -78,7 +78,6 @@ namespace PrjIntegrado.Controllers
         public ActionResult Insert(System.Web.Mvc.FormCollection collection)
         {
             Perda aux = new Perda();
-            aux.Id = int.Parse(collection[0]);
             aux.Quantidade = int.Parse(collection[1]);
             aux.Data = collection[2];
             aux.Id_tipo_papel = int.Parse(collection[3]);
