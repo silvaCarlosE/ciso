@@ -14,7 +14,7 @@
 
 @RenderPage("~/Views/Shared/Header.cshtml")
 @RenderPage("~/Views/Shared/Menu.cshtml")
-<form action="@Url.Action("Update", "Funcionario")" method="POST" class="form-group">
+<form action="@Url.Action("Save", "Funcionario")" method="POST" class="form-group">
     <div class="row padding">
         <div class="col-md-6">
             <img src="" width="70%">
@@ -40,7 +40,7 @@
             <br><br>
         </div>
     </div>
-    <div class="padding">
+    <div class="padding" style="margin-left: 23%">
         <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
     </div>

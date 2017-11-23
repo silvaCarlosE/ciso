@@ -62,9 +62,9 @@
                                 </form>
                             </td>
                             <td style="text-align: center">
-                                <form action="#" method="GET">
-                                    <input type="hidden" name="id-excluir" value="@item.FuncionarioID">
-                                    <button type="submit" name="excluir" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir">
+                                <form action="@Url.Action("Delete", "Funcionario")" method="post">
+                                    <input type="hidden" value="@item.FuncionarioID" name="excluir" />
+                                    <button type="submit" onclick="excluir()" name="excluir" id="exclude-button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir">
                                         <span class="glyphicon glyphicon-trash"></span> Excluir
                                     </button>
                                 </form>

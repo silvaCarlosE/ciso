@@ -7,6 +7,7 @@ using PrjIntegrado.Models;
 using System.Data;
 using System.Data.Common;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace PrjIntegrado.Controllers
 {
@@ -67,6 +68,29 @@ namespace PrjIntegrado.Controllers
 
             bool result = aux.Save(aux);
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Save(System.Web.Mvc.FormCollection collection)
+        {
+            Funcionario aux = new Funcionario();
+            aux.FuncionarioID = int.Parse(collection[0]);
+            aux.Nome = collection[1];
+            aux.CPF = collection[2];
+            aux.Cargo = collection[3];
+            aux.LojaFuncionarioID = collection[4];
+            bool result = aux.Save(aux);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Delete(System.Web.Mvc.FormCollection collection)
+        {
+            int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
+            Funcionario aux = new Funcionario();
+            bool result;
+            result = aux.DeleteManutencao(idToExclude);
+            return RedirectToAction("Index");
         }
     }
 }
