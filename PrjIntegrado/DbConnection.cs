@@ -189,5 +189,29 @@ namespace PrjIntegrado
                 return reader;
             }
         }
+
+        public MySqlDataReader GenericQuery(string statement)
+        {
+            if (this.estabilishConnection() == true)
+            {
+                try
+                {
+                    MySqlCommand stmt = new MySqlCommand(statement, connection);
+                    MySqlDataReader reader = stmt.ExecuteReader();
+                    return reader;
+                }
+                catch (Exception ex)
+                {
+
+                    throw new Exception("Não foi possível localizar nenhum registro", ex);
+                }
+            }
+            else
+            {
+                MySqlCommand stmt = new MySqlCommand(statement, connection);
+                MySqlDataReader reader = stmt.ExecuteReader();
+                return reader;
+            }
+        }
     }
 }

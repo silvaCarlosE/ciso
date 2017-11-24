@@ -1,0 +1,24 @@
+﻿@using PrjIntegrado.Models;
+@using Chart.Mvc.ComplexChart;
+@using Chart.Mvc.Extensions
+@using Newtonsoft.Json
+
+@model List<RankingPerda>
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Ranking de perdas";
+    var barChart = new BarChart();
+    string names = (string)ViewData["listNames"];
+    string quantities = (string)ViewData["listQuantity"];
+    // barChart.ComplexData.Labels.AddRange(names);
+}
+
+@RenderPage("~/Views/Shared/Header.cshtml")
+<script src="~/Scripts/Chart.js"></script>
+@RenderPage("~/Views/Shared/Menu.cshtml")
+    
+    <canvas id="ranking" width="600px" height="600px"></canvas>
+
+@RenderPage("~/Views/Shared/Footer.cshtml")

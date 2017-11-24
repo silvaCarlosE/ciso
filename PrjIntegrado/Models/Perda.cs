@@ -40,9 +40,8 @@ namespace PrjIntegrado.Models
         {
             DbConnection dbConnection = new DbConnection();
             List<Perda> perdas = new List<Perda>();
-            string table = "perdas";
-            string like = " quantidade LIKE '%" + quantidade + "%'";
-            var result = dbConnection.Search(table, like);
+            string statement = "SELECT SUM(QUANTIDADE) FROM PERDAS GROUP BY ID_FUNC";
+            var result = dbConnection.GenericQuery(statement);
             if (result.HasRows)
             {
                 while (result.Read())

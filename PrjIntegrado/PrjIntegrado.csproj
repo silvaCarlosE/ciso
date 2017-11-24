@@ -156,6 +156,7 @@
     <Compile Include="Controllers\ImpressoraController.cs" />
     <Compile Include="Controllers\ManutencaoController.cs" />
     <Compile Include="Controllers\PerdaController.cs" />
+    <Compile Include="Controllers\RankingPerdaController.cs" />
     <Compile Include="Controllers\TecnicoController.cs" />
     <Compile Include="Controllers\TipoPapelController.cs" />
     <Compile Include="DbConnection.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Models\Loja.cs" />
     <Compile Include="Models\Manutencao.cs" />
     <Compile Include="Models\Perda.cs" />
+    <Compile Include="Models\RankingPerda.cs" />
     <Compile Include="Models\Tecnico.cs" />
     <Compile Include="Models\TipoPapel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -250,6 +252,7 @@
     <Content Include="Views\Funcionario\Update.cshtml" />
     <Content Include="Views\Perda\Index.cshtml" />
     <Content Include="Views\Perda\Update.cshtml" />
+    <Content Include="Views\RankingPerda\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
