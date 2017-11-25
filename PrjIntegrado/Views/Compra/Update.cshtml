@@ -1,0 +1,49 @@
+﻿@using PrjIntegrado.Models;
+
+@{
+    Compra aux = new Compra();
+    aux = (Compra)ViewData["aux"];
+
+    List<TipoPapel> tiposPapel = new List<TipoPapel>();
+    tiposPapel = (List<TipoPapel>)ViewData["tiposPapel"];
+}
+
+@{
+    Layout = null;
+}
+
+@RenderPage("~/Views/Shared/Header.cshtml")
+@RenderPage("~/Views/Shared/Menu.cshtml")
+<form action="@Url.Action("Save", "Compra")" method="POST" class="form-group">
+    <div class="row padding">
+        <div class="col-md-6">
+            <img src="" width="70%">
+        </div>
+        <div class="form-group">
+            <div class="col-md-8">
+                <input type="hidden" id="edit-compra" name="id_compra" value="@aux.CompraID">
+                <label for="nome">Quantidade</label>
+                <input class="form-control" required maxlength="45" type="text" name="quantidade" value="@aux.Quantidade">
+                <label for="TipoPapel">Tipo de papel</label>
+                <select class="form-control" name="IdTipoPapel">
+                    @foreach (var item in tiposPapel)
+                    {
+                        <option value="@item.Id">@item.Tipo</option>
+                    }
+                </select>
+
+                <label for="nome">Data</label>
+                <input class="form-control" required maxlength="45" type="date" name="data" value="@aux.Data">
+                <label for="nome">Valor gasto</label>
+                <input class="form-control" required maxlength="45" type="text" name="valor" value="@aux.Valor">
+
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <div class="padding" style="margin-left: 23%">
+        <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
+        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+    </div>
+</form>
+@RenderPage("~/Views/Shared/Footer.cshtml")
