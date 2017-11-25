@@ -2,23 +2,48 @@
 @using Chart.Mvc.ComplexChart;
 @using Chart.Mvc.Extensions
 @using Newtonsoft.Json
+@using System.Web.Script.Serialization;
 
 @model List<RankingPerda>
 @{
     Layout = null;
 }
+@RenderPage("~/Views/Shared/Header.cshtml")
+
+@RenderPage("~/Views/Shared/Menu.cshtml")
 @{
     ViewBag.Title = "Ranking de perdas";
     var barChart = new BarChart();
-    string names = (string)ViewData["listNames"];
-    string quantities = (string)ViewData["listQuantity"];
-    // barChart.ComplexData.Labels.AddRange(names);
+
+    //VALUES
+    var quantities = (List<double>)ViewData["listQuantity"];
+    quantities.ToList();
+    //NAMES
+    var names = (List<string>)ViewData["listNames"];
+    List<object> nl = new List<object>();
+    nl.Add(names);
+   
+
+    barChart.ComplexData.Labels.AddRange(names);
+    barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
+                           {
+                              new ComplexDataset
+                                  {
+                                      Data = quantities,
+                                      Label = "Ranking de perdas",
+                                      FillColor = "rgba(0, 137, 195, 0.9)",
+                                      StrokeColor = "rgba(220,220,220,1)",
+                                      PointColor = "rgba(220,220,220,1)",
+                                      PointStrokeColor = "#fff",
+                                      PointHighlightFill = "#fff",
+                                      PointHighlightStroke = "rgba(220,220,220,1)",
+                                  }
+                          });
 }
-
-@RenderPage("~/Views/Shared/Header.cshtml")
-<script src="~/Scripts/Chart.js"></script>
-@RenderPage("~/Views/Shared/Menu.cshtml")
     
-    <canvas id="ranking" width="600px" height="600px"></canvas>
-
+<div class="h-100 align-items-center">
+    <canvas id="ranking" class="center-block col-md-8 fixed" class="right"></canvas>
+</div>
+<script src="~/Scripts/Chart.js"></script>
+@Html.CreateChart("ranking", barChart)
 @RenderPage("~/Views/Shared/Footer.cshtml")

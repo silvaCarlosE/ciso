@@ -8,6 +8,8 @@ using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Chart.Mvc.ComplexChart;
+using Chart.Mvc.Extensions;
 
 namespace PrjIntegrado.Controllers
 {
@@ -20,25 +22,17 @@ namespace PrjIntegrado.Controllers
             List<Perda> list = new List<Perda>();
             list = aux.GetRanking();
             Funcionario auxFunc = new Funcionario();
-            JArray names = new JArray();
-            JArray quantities = new JArray();
+            List<string> names = new List<string>();
+            List<double> quantities = new List<double>();
             foreach (var item in list)
             {
                 auxFunc = auxFunc.selectById(item.Id_funcionario);
                 names.Add(auxFunc.Nome);
-                quantities.Add(item.Quantidade);                
+                quantities.Add(double.Parse(item.Quantidade.ToString()));                
             }
 
-            JObject namesList = new JObject();
-            namesList["names"] = names;
-
-            MessageBox.Show(namesList.ToString());
-
-            JObject quantityList = new JObject();
-            quantityList["quantities"] = quantities;
-
-            ViewData["listQuantity"] = quantityList.ToString();
-            ViewData["listNames"] = namesList.ToString();
+            ViewData["listQuantity"] = quantities;
+            ViewData["listNames"] = names;
             return View();
         }
     }
