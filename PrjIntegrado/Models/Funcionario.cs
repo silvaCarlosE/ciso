@@ -82,7 +82,7 @@ namespace PrjIntegrado.Models
             return aux;
         }
 
-        public bool DeleteManutencao(int id)
+        public bool Delete(int id)
         {
             DbConnection dbConnection = new DbConnection();
             string tableName = "funcionarios";

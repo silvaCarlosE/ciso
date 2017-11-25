@@ -89,7 +89,7 @@ namespace PrjIntegrado.Controllers
             int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
             Funcionario aux = new Funcionario();
             bool result;
-            result = aux.DeleteManutencao(idToExclude);
+            result = aux.Delete(idToExclude);
             return RedirectToAction("Index");
         }
     }
