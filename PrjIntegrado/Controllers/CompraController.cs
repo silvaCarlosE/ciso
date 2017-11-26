@@ -11,33 +11,46 @@ namespace PrjIntegrado.Controllers
     public class CompraController : Controller
     {
         // GET: Compra
-        public ActionResult Index()
+        public ActionResult Index(String UserName)
         {
-            Compra aux = new Compra();
-            List<Compra> list = new List<Compra>();
-            list = aux.getCompra();
-            ViewData["list"] = list;
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
 
-            TipoPapel auxTipo = new TipoPapel();
+                return RedirectToAction("Index", "Login");
 
-            List<TipoPapel> tiposPapel = new List<TipoPapel>();
-            tiposPapel = auxTipo.getTipoPapel();
-            ViewData["tiposPapel"] = tiposPapel;
+            }
 
-            return View(list);
+            else
+                {
+
+                ViewBag.UserName = UserName;
+                Compra aux = new Compra();
+                List<Compra> list = new List<Compra>();
+                list = aux.getCompra();
+                ViewData["list"] = list;
+
+                TipoPapel auxTipo = new TipoPapel();
+
+                List<TipoPapel> tiposPapel = new List<TipoPapel>();
+                tiposPapel = auxTipo.getTipoPapel();
+                ViewData["tiposPapel"] = tiposPapel;
+
+                return View(list);
+            }
         }
 
-        [HttpPost]
-        public ActionResult Create(System.Web.Mvc.FormCollection collection)
-        {
-            Compra compra = new Compra();
-            compra.Quantidade = int.Parse(collection[1]);
-            compra.IdTipoPapel = int.Parse(collection[2]);
-            compra.Data = collection[3];
-            compra.Valor = float.Parse(collection[4]);
-            bool result = compra.Insert(compra);
-            return RedirectToAction("Index");
-        }
+            [HttpPost]
+            public ActionResult Create(System.Web.Mvc.FormCollection collection)
+            {
+                Compra compra = new Compra();
+                compra.Quantidade = int.Parse(collection[1]);
+                compra.IdTipoPapel = int.Parse(collection[2]);
+                compra.Data = collection[3];
+                compra.Valor = float.Parse(collection[4]);
+                bool result = compra.Insert(compra);
+                return RedirectToAction("Index");
+            }
 
         [HttpPost]
         public ActionResult Update(System.Web.Mvc.FormCollection collection)

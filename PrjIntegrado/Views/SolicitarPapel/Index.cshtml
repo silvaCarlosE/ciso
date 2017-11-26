@@ -1,14 +1,17 @@
-﻿@using PrjIntegrado.Models;
+﻿
+@using PrjIntegrado.Models;
 
-@model List<Impressora>
+@model List<SolicitarPapel>
 
 @{
     Layout = null;
 }
 
-@{ 
-    List<int> ids = new List<int>();
-    ids = (List<int>)ViewData["lojas"];
+@{
+
+    List<TipoPapel> TipoPapel = new List<TipoPapel>();
+    TipoPapel = (List<TipoPapel>)ViewData["TipoPapel"];
+
 }
 
 @RenderPage("~/Views/Shared/Header.cshtml")
@@ -19,15 +22,15 @@
     <div class="content">
         <div class="title">
             <h2>
-                Impressoras
+                Solicitação de papel
             </h2>
         </div>
-        <form action="@Url.Action("Search", "Impressora")" method="post">
+        <form action="@Url.Action("Search", "SolicitarPapel")" method="post">
             <div class="input col-md-5">
                 <input type="text" name="nome" class="form-control">
             </div>
             <div>
-                <button type="submit" name="buscaNome" class="btn btn-primary">
+                <button type="submit" name="buscaSolicitacao" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
@@ -37,39 +40,49 @@
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Marca</th>
-                        <th>Tipo de tinta</th>
-                        <th>Id da loja</th>
+                        <th>Código da solicitação</th>
+                        <th>Tipo</th>
+                        <th>Tamanho</th>
+                        <th>Gramatura</th>
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (((List<Impressora>)ViewBag.List).Count() == 0)
+                    @if (((List<SolicitarPapel>)ViewBag.List).Count() == 0)
                     {
                         <div class="alert alert-info">
-                            <p>Não existe nenhuma impressora cadastrada. </p>
+                            <p>Não existe nenhuma solicitação cadastrada. </p>
                         </div>
                     }
-                    @foreach (var item in (List<Impressora>)ViewBag.List)
+                    
+                    @foreach (var item in (List<SolicitarPapel>)ViewBag.List) 
                     {
+
                         <tr>
-                            <td>@item.Nome</td>
-                            <td>@item.Marca</td>
-                            <td>@item.Tipo_tinta</td>
-                            <td>@item.Id_loja</td>
+                            <td>@item.Ids</td>
+                            @foreach (var item2 in TipoPapel)
+                            {
+                                if (item2.Id == item.Ids)
+                                {
+                                    <td>@item2.Tipo</td>
+                                    <td>@item2.Tamanho</td>
+                                    <td>@item2.Gramatura</td>
+                                }
+
+                            }
+
                             <td style="text-align: center">
-                                <form action="@Url.Action("Update", "Impressora", new {id = item.Id})" method="post">
-                                    <input type="hidden" name="excluir" value="@item.Id" />
-                                    <button type="submit" name="atualizar" class="btn btn-warning" item-id="@item.Id">
+                                <form action="@Url.Action("Update", "SolicitarPapel", new {IdTipo = item.Ids})" method="post">
+                                    <input type="hidden" name="excluir" value="@item.Ids" />
+                                    <button type="submit" name="atualizar" class="btn btn-warning" item-id="@item.Ids">
                                         <span class="glyphicon glyphicon-edit"></span> Editar
                                     </button>
                                 </form>
                             </td>
                             <td style="text-align: center">
-                                <form action="@Url.Action("Delete", "Impressora")" method="post">
-                                    <input type="hidden" value="@item.Id" name="excluir" />
+                                <form action="@Url.Action("Delete", "SolicitarPapel")" method="post">
+                                    <input type="hidden" value="@item.Ids" name="excluir" />
                                     <button type="submit" onclick="excluir()" name="excluir" id="exclude-button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir">
                                         <span class="glyphicon glyphicon-trash"></span> Excluir
                                     </button>
@@ -91,36 +104,43 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Adicionar Impressora</h4>
+                <h4 class="modal-title">Adicionar nova Solicitação</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action("Insert", "Impressora")" method="POST" class="form-group" onsubmit="validate()">
+                @if (ViewData["errorMsg"].Equals(""))
+                {
+
+                }
+                else
+                {
+                    <p class="alert alert-info">@ViewData["errorMsg"]</p>
+                }
+                <form action="@Url.Action("Insert", "SolicitarPapel")" method="POST" class="form-group" onsubmit="validate()">
                     <div class="row">
                         <div class="col-md-6">
-                            
-                            <img src="~/Img/impressora-icone.jpg" width="70%" />
+                            <img src="~/imagem/papel-icone.png" width="70%" />
                         </div>
                         <div class="form-group">
                             <div class="col-md-6">
-                                <input type="hidden" id="edit-impressora" name="id_impressora" value="">
-                                <label for="nome">Nome</label>
-                                <input class="form-control" required maxlength="45" type="text" name="nome" maxlength="20">
-                                <label for="marca">Marca</label>
-                                <input class="form-control" required maxlength="45" type="text" name="marca" maxlength="20">
-                                <label for="tipo-tinta">Tipo de tinta</label>
-                                <input class="form-control" required maxlength="45" type="text" name="tipo-tinta" maxlength="20">
-                                <label for="id-loja">Id da loja</label>
-                                <select class="form-control" required name="id-loja">
-                                    @foreach (var item in ids)
+                                <input type="hidden" id="edit-solicitacao" name="id_solicitacao" value="escolha">
+                               
+
+                                <label for="id-tipo">Tipo e tamanho</label>
+                                <select name="tipo_papel" class="form-control" required>
+                                    @foreach (var tipo_papel in TipoPapel)
                                     {
-                                        <option value="@item">@item</option>
+                                        
+                                        <option name="escolha" value="@tipo_papel.Id">@tipo_papel.Tipo @tipo_papel.Tamanho</option>
+                                        
                                     }
                                 </select>
+
+                               
                             </div>
                             <br><br>
                         </div>
                     </div>
-                    <div class="padding">
+                    <div class="padding" style="margin-left:60%">
                         <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
                         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
                     </div>

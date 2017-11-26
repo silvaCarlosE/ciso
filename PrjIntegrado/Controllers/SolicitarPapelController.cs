@@ -9,8 +9,9 @@ using System.Windows.Forms;
 
 namespace PrjIntegrado.Controllers
 {
-    public class TipoPapelController : Controller
+    public class SolicitarPapelController : Controller
     {
+
         // GET: TipoPapel
         public ActionResult Index()
         {
@@ -24,9 +25,26 @@ namespace PrjIntegrado.Controllers
 
             else
             {
-                TipoPapel aux = new TipoPapel();
-                List<TipoPapel> list = new List<TipoPapel>();
-                list = aux.getTipoPapel();
+
+                
+                SolicitarPapel aux = new SolicitarPapel();
+                List<SolicitarPapel> list = new List<SolicitarPapel>();
+                List<TipoPapel> TipoPapel = new List<TipoPapel>();
+
+
+                list = aux.GetSolicitarPapel();
+                TipoPapel = aux.GetTipoPapel();
+
+                if (TipoPapel.Count == 0)
+                {
+                    ViewData["errorMsg"] = "É necessário o cadastro de ao menos um tipo de papel para realizar o cadastro de uma solicitação";
+                }
+                else
+                {
+                    ViewData["errorMsg"] = "";
+                }
+                ViewData["TipoPapel"] = TipoPapel;
+
                 ViewBag.List = list;
                 return View(list);
             }
@@ -35,10 +53,14 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Update(System.Web.Mvc.FormCollection collection)
         {
-            TipoPapel aux = new TipoPapel();
+            SolicitarPapel aux = new SolicitarPapel();
             aux = aux.selectById(int.Parse(collection[0]));
-            ViewData["TipoPapel"] = aux;
-           
+            List<TipoPapel> TipoPapel = new List<TipoPapel>();
+
+            TipoPapel = aux.GetTipoPapel();
+
+            ViewData["TipoPapel"] = TipoPapel;
+            ViewData["SolicitarPapel"] = aux;
             return View();
         }
 
@@ -46,20 +68,18 @@ namespace PrjIntegrado.Controllers
         public ActionResult Delete(System.Web.Mvc.FormCollection collection)
         {
             int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
-            TipoPapel aux = new TipoPapel();
+            SolicitarPapel aux = new SolicitarPapel();
             bool result;
-            result = aux.DeleteTipoPapel(idToExclude);
+            result = aux.DeleteSolicitarPapel(idToExclude);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Save(System.Web.Mvc.FormCollection collection)
         {
-            TipoPapel aux = new TipoPapel();
-            aux.Id = int.Parse(collection[0]);
-            aux.Tipo = collection[1];
-            aux.Tamanho = collection[2];
-            aux.Gramatura= int.Parse(collection[3]);
+            SolicitarPapel aux = new SolicitarPapel();
+            aux.IdTipo = int.Parse(collection[1]);
+            aux.Ids = int.Parse(Regex.Replace(collection[0], " ", ""));
            
             bool result = aux.Update(aux);
             return RedirectToAction("Index");
@@ -68,11 +88,10 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Insert(System.Web.Mvc.FormCollection collection)
         {
-            TipoPapel aux = new TipoPapel();
+            SolicitarPapel aux = new SolicitarPapel();
             
-            aux.Tipo = collection[1];
-            aux.Tamanho = collection[2];
-            aux.Gramatura = int.Parse(collection[3]);
+            aux.IdTipo = int.Parse(collection[1]);
+            
             bool result;
             result = aux.Insert(aux);
             return RedirectToAction("Index");

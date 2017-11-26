@@ -1,0 +1,37 @@
+﻿@using PrjIntegrado.Models;
+
+@model Login
+
+@{
+    Layout = null;
+}
+
+@{
+    Login Login = new Login();
+    Login = (Login)ViewData["Login"];
+
+}
+@RenderPage("~/Views/Shared/Header.cshtml")
+
+
+<br>
+<h1 style=" text-align: center; margin-top: -2%";><b><strong><i>SISTEMA CISO </i></strong><span class="glyphicon glyphicon-print"> </span></b></h1>
+<br>
+<div style="width: 30%; margin-left:40%">
+    <h1 style="text-align: center; margin-top: 10%; margin-left:-30%";>
+        Identificação <span class="glyphicon glyphicon-user"> </span>
+    </h1>
+    <br>
+    <form style=" margin-top: 3%" action="@Url.Action("VerificaUsuarios", "Login")" method="POST">
+        
+        <label for="usuario"> Usuário </label>
+        <input type="text" name="usuario" class="form-control" placeholder="Digite aqui seu username">
+        <br>
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" class="form-control" placeholder="Digite aqui sua senha"><br><br>
+       
+        <input type="submit" name="login" value="Entrar" class="btn btn-success btn-lg btn-block">
+       
+</form>
+   
+</div>

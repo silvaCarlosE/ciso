@@ -16,19 +16,29 @@ namespace PrjIntegrado.Controllers
         // GET: Funcionario
         public ActionResult Index()
         {
-            Funcionario aux = new Funcionario();
-            List<Funcionario> list = new List<Funcionario>();
-            list = aux.getFuncionarios();
-            ViewData["list"] = list;
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
 
-            Loja auxLoja = new Loja();
+                return RedirectToAction("Index", "Login");
 
-            List<Loja> listaLojas = new List<Loja>();
-            listaLojas = auxLoja.getLojas();            
-            ViewData["listaLojas"] = listaLojas;
+            }
 
-            return View(list);
+            else
+            {
+                Funcionario aux = new Funcionario();
+                List<Funcionario> list = new List<Funcionario>();
+                list = aux.getFuncionarios();
+                ViewData["list"] = list;
 
+                Loja auxLoja = new Loja();
+
+                List<Loja> listaLojas = new List<Loja>();
+                listaLojas = auxLoja.getLojas();
+                ViewData["listaLojas"] = listaLojas;
+
+                return View(list);
+            }
 
         }
 

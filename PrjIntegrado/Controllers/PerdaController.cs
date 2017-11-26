@@ -13,26 +13,37 @@ namespace PrjIntegrado.Controllers
         // GET: Perda
         public ActionResult Index()
         {
-            Perda aux = new Perda();
-            List<Perda> list = new List<Perda>();
-            List<Funcionario> funcionarios = new List<Funcionario>();
-            List<TipoPapel> tiposPapel = new List<TipoPapel>();
-
-            list = aux.getPerdas();
-            funcionarios = aux.GetFuncionarios();
-            tiposPapel = aux.getTiposPapel();
-            if (funcionarios.Count == 0 || tiposPapel.Count == 0)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                ViewData["errorMsg"] = "É necessário o cadastro de ao menos um funcionário e um tipo de papel para realizar o cadastro de uma perda";
+
+                return RedirectToAction("Index", "Login");
+
             }
+
             else
             {
-                ViewData["errorMsg"] = "";
+                Perda aux = new Perda();
+                List<Perda> list = new List<Perda>();
+                List<Funcionario> funcionarios = new List<Funcionario>();
+                List<TipoPapel> tiposPapel = new List<TipoPapel>();
+
+                list = aux.getPerdas();
+                funcionarios = aux.GetFuncionarios();
+                tiposPapel = aux.getTiposPapel();
+                if (funcionarios.Count == 0 || tiposPapel.Count == 0)
+                {
+                    ViewData["errorMsg"] = "É necessário o cadastro de ao menos um funcionário e um tipo de papel para realizar o cadastro de uma perda";
+                }
+                else
+                {
+                    ViewData["errorMsg"] = "";
+                }
+                ViewData["funcionarios"] = funcionarios;
+                ViewData["tiposPapel"] = tiposPapel;
+                ViewBag.List = list;
+                return View(list);
             }
-            ViewData["funcionarios"] = funcionarios;
-            ViewData["tiposPapel"] = tiposPapel;
-            ViewBag.List = list;
-            return View(list);
         }
 
         [HttpPost]
