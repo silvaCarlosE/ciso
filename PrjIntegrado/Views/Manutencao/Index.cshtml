@@ -9,6 +9,7 @@
 @{
     List<Tecnico> tecnicos = new List<Tecnico>();
     List<Impressora> impressoras = new List<Impressora>();
+    List<string> datas = new List<string>();
 
     tecnicos = (List<Tecnico>)ViewData["tecnicos"];
     impressoras = (List<Impressora>)ViewData["impressoras"];
@@ -44,6 +45,7 @@
                         <th>Data</th>
                         <th>Técnico</th>
                         <th>Impressora</th>
+                        <th>Valor Gasto</th>
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
@@ -59,9 +61,22 @@
                     {
                         <tr>
                             <td>@item.Defeito</td>
-                            <td>@item.Data</td>
-                            <td>@item.Id_tecnico</td>
-                            <td>@item.Id_impressora</td>
+                            <td> @item.Data  </td>
+                            @foreach (var tecnico in tecnicos)
+                            {
+                                if (item.Id_tecnico == tecnico.Id)
+                                {
+                                    <td>@tecnico.Nome</td>
+                                }
+                            }
+                            @foreach (var impressora in impressoras)
+                            {
+                                if (item.Id_impressora == impressora.Id)
+                                {
+                                    <td>@impressora.Nome</td>
+                                }
+                            }
+                           
                             <td>@item.Valor_gasto</td>
                             <td style="text-align: center">
                                 <form action="@Url.Action("Update", "Manutencao", new {id = item.Id})" method="post">

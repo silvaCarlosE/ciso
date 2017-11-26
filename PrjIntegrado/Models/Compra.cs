@@ -18,7 +18,7 @@ namespace PrjIntegrado.Models
             DbConnection dbConnection = new DbConnection();
             List<Compra> compras = new List<Compra>();
             string tableName = "papel_comprado";
-            string fields = " id_compra, quantidade, id_tipo_papel, data_compra, valor_gasto";
+            string fields = " id_compra, quantidade, id_tipo_papel, DATE_FORMAT(data_compra, '%Y-%m-%d'), valor_gasto";
             var result = dbConnection.Select(tableName, fields);
             if (result.HasRows)
             {
@@ -50,7 +50,7 @@ namespace PrjIntegrado.Models
         {
             DbConnection dbConnection = new DbConnection();
             string table = "papel_comprado";
-            string fields = " id_compra, quantidade, id_tipo_papel, data_compra, valor_gasto ";
+            string fields = " id_compra, quantidade, id_tipo_papel, DATE_FORMAT(data_compra, '%Y-%m-%d'), valor_gasto ";
             string id_field = "id_compra";
             int id_compra = id;
             var result = dbConnection.SelectById(table, fields, id_field, id_compra);

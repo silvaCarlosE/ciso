@@ -64,6 +64,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DataVisualization.Design" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -71,6 +73,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms.DataVisualization.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -158,6 +162,7 @@
     <Compile Include="Controllers\ManutencaoController.cs" />
     <Compile Include="Controllers\PerdaController.cs" />
     <Compile Include="Controllers\RankingPerdaController.cs" />
+    <Compile Include="Controllers\RelatorioGastosController.cs" />
     <Compile Include="Controllers\RelatorioManutencaoController.cs" />
     <Compile Include="Controllers\RelatorioPerdaController.cs" />
     <Compile Include="Controllers\TecnicoController.cs" />
@@ -173,6 +178,7 @@
     <Compile Include="Models\Manutencao.cs" />
     <Compile Include="Models\Perda.cs" />
     <Compile Include="Models\RankingPerda.cs" />
+    <Compile Include="Models\RelatorioGastos.cs" />
     <Compile Include="Models\RelatorioManutencao.cs" />
     <Compile Include="Models\RelatorioPerda.cs" />
     <Compile Include="Models\Tecnico.cs" />
@@ -263,6 +269,7 @@
     <Content Include="Views\Compra\Update.cshtml" />
     <Content Include="Views\RelatorioManutencao\Index.cshtml" />
     <Content Include="Views\RelatorioPerda\Index.cshtml" />
+    <Content Include="Views\RelatorioGastos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

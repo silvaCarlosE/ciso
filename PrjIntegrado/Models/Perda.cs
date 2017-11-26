@@ -18,7 +18,7 @@ namespace PrjIntegrado.Models
             DbConnection dbConnection = new DbConnection();
             List<Perda> perdas = new List<Perda>();
             string tableName = "perdas";
-            string fields = " id_perda, quantidade, dataperda, id_tipo_papel, id_func ";
+            string fields = " id_perda, quantidade, DATE_FORMAT(dataperda, '%Y-%m-%d'), id_tipo_papel, id_func ";
             var result = dbConnection.Select(tableName, fields);
             if (result.HasRows)
             {
@@ -71,7 +71,7 @@ namespace PrjIntegrado.Models
         {
             DbConnection dbConnection = new DbConnection();
             string table = "perdas";
-            string fields = " id_perda, quantidade, dataperda, id_tipo_papel, id_func ";
+            string fields = " id_perda, quantidade, DATE_FORMAT(dataperda, '%Y-%m-%d'), id_tipo_papel, id_func ";
             string id_field = "id_perda";
             int id_perda = id;
             var result = dbConnection.SelectById(table, fields, id_field, id_perda);

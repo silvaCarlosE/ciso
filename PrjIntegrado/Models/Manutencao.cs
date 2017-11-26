@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
+using System.Windows.Forms;
 
 namespace PrjIntegrado.Models
 {
@@ -19,7 +21,7 @@ namespace PrjIntegrado.Models
             DbConnection dbConnection = new DbConnection();
             List<Manutencao> manutencao = new List<Manutencao>();
             string tableName = "manutencoes";
-            string fields = " id_manut, defeito, data_manut, id_tecnico, Id_impressora, valor_gasto ";
+            string fields = " id_manut, defeito, DATE_FORMAT(data_manut, '%Y-%m-%d'), id_tecnico, Id_impressora, valor_gasto ";
             var result = dbConnection.Select(tableName, fields);
             if (result.HasRows)
             {
@@ -75,7 +77,7 @@ namespace PrjIntegrado.Models
         {
             DbConnection dbConnection = new DbConnection();
             string table = "manutencoes";
-            string fields = " id_manut, defeito, data_manut, id_tecnico, id_impressora, valor_gasto ";
+            string fields = " id_manut, defeito, DATE_FORMAT(data_manut, '%Y-%m-%d'), id_tecnico, id_impressora, valor_gasto ";
             string id_field = "id_manut";
             int id_manut = id;
             var result = dbConnection.SelectById(table, fields, id_field, id_manut);

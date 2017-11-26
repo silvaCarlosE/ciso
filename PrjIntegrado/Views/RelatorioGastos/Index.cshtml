@@ -1,0 +1,66 @@
+﻿@using PrjIntegrado.Models;
+@using Chart.Mvc.ComplexChart;
+@using Chart.Mvc.Extensions
+@using Newtonsoft.Json
+@using System.Web.Script.Serialization;
+
+@model List<RelatorioGastos>
+@{
+    Layout = null;
+}
+@RenderPage("~/Views/Shared/Header.cshtml")
+
+@RenderPage("~/Views/Shared/Menu.cshtml")
+@{
+    ViewBag.Title = "Relatório de gastos";
+    var barChart = new BarChart();
+
+    //VALUES
+    var quantities = (List<double>)ViewData["listQuantity"];
+    quantities.ToList();
+    //NAMES
+    var names = (List<string>)ViewData["listNames"];
+    List<object> nl = new List<object>();
+    nl.Add(names);
+
+
+    barChart.ComplexData.Labels.AddRange(names);
+    barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
+                           {
+                              new ComplexDataset
+                                  {
+                                      Data = quantities,
+                                      Label = "Ranking de perdas",
+                                      FillColor = "rgba(0, 137, 195, 0.9)",
+                                      StrokeColor = "rgba(220,220,220,1)",
+                                      PointColor = "rgba(220,220,220,1)",
+                                      PointStrokeColor = "#fff",
+                                      PointHighlightFill = "#fff",
+                                      PointHighlightStroke = "rgba(220,220,220,1)",
+                                  }
+                          });
+}
+
+<div class="h-100 align-items-center">
+    <form action="@Url.Action("Filter", "RelatorioGastos")" method="post" class="form-inline">
+        <div class="form-group">
+            <label for="exibir">A partir de: </label>
+            <input type="date" name="a-partir" class="form-control" />
+        </div>
+        <button type="submit" name="pesquisar" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </form>    
+    <canvas id="ranking" class="center-block col-md-8 fixed" class="right"></canvas>
+    @if ((string)ViewData["msg"] != null)
+    {
+        <script type="text/javascript">
+            alert("A pesquisa foi realizada com os parâmetros passados");
+        </script>
+    }
+</div>
+<script src="~/Scripts/Chart.js"></script>
+@Html.CreateChart("ranking", barChart)
+@RenderPage("~/Views/Shared/Footer.cshtml")
+
+
