@@ -24,7 +24,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li role="presentation">
-                     Cadastrar papel comprado
+                    @Html.ActionLink("Cadastrar papel comprado", "Index", "Compra")
                 </li>
                 <li role="presentation">
                      @Html.ActionLink("Perdas de papel", "Index", "Perda")
@@ -50,13 +50,13 @@
             </a>
             <ul class="dropdown-menu">
                 <li role="presentation">
-                    <span class="glyphicon glyphicon-stats"></span> - Relatório de Gastos
+                    @Html.ActionLink("Relatório de manutenções", "Index", "RelatorioManutencao")
                 </li>
                 <li role="presentation">
                     <span class="glyphicon glyphicon-stats"></span> - Relatório de Perda
                 </li>
                 <li role="presentation">
-                    <span class="glyphicon glyphicon-stats"></span> - Relatório de Manutenções
+                    <span class="glyphicon glyphicon-stats"></span> - Relatório de gastos
                 </li>
             </ul>
         </li>
