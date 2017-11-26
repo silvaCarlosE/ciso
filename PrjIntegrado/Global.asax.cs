@@ -12,10 +12,26 @@ namespace PrjIntegrado
     {
         protected void Application_Start()
         {
+            Application["UsersOnline"] = 0;
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        public void Session_OnStart()
+        {
+            Application.Lock();
+            Application["UsersOnline"] = (int)Application["UsersOnline"] + 1;
+            Application.UnLock();
+        }
+
+        public void Session_OnEnd()
+        {
+            Application.Lock();
+            Application["UsersOnline"] = (int)Application["UsersOnline"] - 1;
+            Application.UnLock();
+        }
+
     }
 }
