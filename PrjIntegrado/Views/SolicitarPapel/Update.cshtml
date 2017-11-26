@@ -1,0 +1,47 @@
+﻿@using PrjIntegrado.Models;
+
+@model List<SolicitarPapel>
+
+@{
+    Layout = null;
+}
+
+@{
+    SolicitarPapel aux = new SolicitarPapel();
+    aux = (SolicitarPapel)ViewData["SolicitarPapel"];
+
+    List<TipoPapel> TipoPapel = new List<TipoPapel>();
+    
+    TipoPapel = (List<TipoPapel>)ViewData["TipoPapel"];
+}
+
+@RenderPage("~/Views/Shared/Header.cshtml")
+@RenderPage("~/Views/Shared/Menu.cshtml")
+<form action="@Url.Action("Save", "SolicitarPapel")" method="POST" class="form-group" onsubmit="validate()">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="" width="70%">
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <input type="hidden" id="edit-solicitacao" name="id_solicitacao" value="@aux.Ids">
+                <select name="tipo" class="form-control" required selected="@aux.IdTipo">
+                    @foreach (var tipo_papel in TipoPapel)
+                    {
+                        <option value="@tipo_papel.Id">@tipo_papel.Tipo @tipo_papel.Tamanho</option>
+
+                    }
+                </select>
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <div class="padding">
+        <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
+        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+    </div>
+</form>
+@RenderPage("~/Views/Shared/Footer.cshtml")
+
+
+

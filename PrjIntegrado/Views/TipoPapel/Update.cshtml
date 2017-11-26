@@ -17,11 +17,11 @@
 </div>
 <form action="@Url.Action("Save", "TipoPapel")" method="POST" class="form-group">
     <div class="row padding">
-        <div class="col-md-6">
-            <img src="" width="70%">
+        <div class="col-md-6" style="float:right; margin-top:5%">
+            <img src="~/Img/papel-icone.png" width="20%" />
         </div>
-        <div class="form-group">
-            <div class="col-md-8">
+        <div class="form-group" >
+            <div class="col-md-8" style="margin-top: -10%;margin-left:10%">
                 <input type="hidden" id="edit-tipo" name="id_tipo" value="@aux.Id">
 
                 <label for="tipo">Tipo</label>
@@ -37,10 +37,12 @@
             <br><br>
         </div>
     </div>
-    <div class="padding" style="margin-left: 23%">
+    <div class="padding" style="margin-left: 33%">
         <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
     </div>
+    
+    
 </form>
 @RenderPage("~/Views/Shared/Footer.cshtml")
 

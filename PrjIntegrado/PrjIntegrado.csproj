@@ -161,6 +161,7 @@
     <Compile Include="Controllers\RankingPerdaController.cs" />
     <Compile Include="Controllers\RelatorioManutencaoController.cs" />
     <Compile Include="Controllers\RelatorioPerdaController.cs" />
+    <Compile Include="Controllers\SolicitarPapelController.cs" />
     <Compile Include="Controllers\TecnicoController.cs" />
     <Compile Include="Controllers\TipoPapelController.cs" />
     <Compile Include="DbConnection.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Models\RankingPerda.cs" />
     <Compile Include="Models\RelatorioManutencao.cs" />
     <Compile Include="Models\RelatorioPerda.cs" />
+    <Compile Include="Models\SolicitarPapel.cs" />
     <Compile Include="Models\Tecnico.cs" />
     <Compile Include="Models\TipoPapel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -270,6 +272,8 @@
     <Content Include="Views\RelatorioManutencao\Index.cshtml" />
     <Content Include="Views\RelatorioPerda\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\SolicitarPapel\Index.cshtml" />
+    <Content Include="Views\SolicitarPapel\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
