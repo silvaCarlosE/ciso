@@ -14,11 +14,22 @@ namespace PrjIntegrado.Controllers
         // GET: TipoPapel
         public ActionResult Index()
         {
-            TipoPapel aux = new TipoPapel();
-            List<TipoPapel> list = new List<TipoPapel>();
-            list = aux.getTipoPapel();
-            ViewBag.List = list;
-            return View(list);
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
+
+                return RedirectToAction("Index", "Login");
+
+            }
+
+            else
+            {
+                TipoPapel aux = new TipoPapel();
+                List<TipoPapel> list = new List<TipoPapel>();
+                list = aux.getTipoPapel();
+                ViewBag.List = list;
+                return View(list);
+            }
         }
 
         [HttpPost]

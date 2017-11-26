@@ -14,14 +14,25 @@ namespace PrjIntegrado.Controllers
         // GET: Impressora
         public ActionResult Index()
         {
-            Impressora aux = new Impressora();
-            List<Impressora> list = new List<Impressora>();
-            List<int> ids = new List<int>();
-            list = aux.getImpressoras();
-            ids = aux.GetLojas();
-            ViewData["lojas"] = ids;
-            ViewBag.List = list;
-            return View(list);
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
+
+                return RedirectToAction("Index", "Login");
+
+            }
+
+            else
+            {
+                Impressora aux = new Impressora();
+                List<Impressora> list = new List<Impressora>();
+                List<int> ids = new List<int>();
+                list = aux.getImpressoras();
+                ids = aux.GetLojas();
+                ViewData["lojas"] = ids;
+                ViewBag.List = list;
+                return View(list);
+            }
         }
 
         [HttpPost]

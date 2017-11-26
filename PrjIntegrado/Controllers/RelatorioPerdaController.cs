@@ -11,22 +11,33 @@ namespace PrjIntegrado.Controllers
     {
         public ActionResult Index()
         {
-            RankingPerda aux = new RankingPerda();
-            List<Perda> list = new List<Perda>();
-            list = aux.GetRanking();
-            Funcionario auxFunc = new Funcionario();
-            List<string> names = new List<string>();
-            List<double> quantities = new List<double>();
-            foreach (var item in list)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                auxFunc = auxFunc.selectById(item.Id_funcionario);
-                names.Add(auxFunc.Nome);
-                quantities.Add(double.Parse(item.Quantidade.ToString()));
+
+                return RedirectToAction("Index", "Login");
+
             }
 
-            ViewData["listQuantity"] = quantities;
-            ViewData["listNames"] = names;
-            return View();
+            else
+            {
+                RankingPerda aux = new RankingPerda();
+                List<Perda> list = new List<Perda>();
+                list = aux.GetRanking();
+                Funcionario auxFunc = new Funcionario();
+                List<string> names = new List<string>();
+                List<double> quantities = new List<double>();
+                foreach (var item in list)
+                {
+                    auxFunc = auxFunc.selectById(item.Id_funcionario);
+                    names.Add(auxFunc.Nome);
+                    quantities.Add(double.Parse(item.Quantidade.ToString()));
+                }
+
+                ViewData["listQuantity"] = quantities;
+                ViewData["listNames"] = names;
+                return View();
+            }
         }
 
         public ActionResult Filter(System.Web.Mvc.FormCollection collection)

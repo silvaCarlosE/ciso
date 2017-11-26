@@ -14,11 +14,22 @@ namespace PrjIntegrado.Controllers
         // GET: Tecnico
         public ActionResult Index()
         {
-            Tecnico aux = new Tecnico();
-            List<Tecnico> list = new List<Tecnico>();
-            list = aux.getTecnicos();
-            ViewBag.List = list;
-            return View(list);
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
+
+                return RedirectToAction("Index", "Login");
+
+            }
+
+            else
+            {
+                Tecnico aux = new Tecnico();
+                List<Tecnico> list = new List<Tecnico>();
+                list = aux.getTecnicos();
+                ViewBag.List = list;
+                return View(list);
+            }
         }
 
         [HttpPost]

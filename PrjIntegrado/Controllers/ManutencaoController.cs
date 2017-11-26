@@ -14,26 +14,37 @@ namespace PrjIntegrado.Controllers
         // GET: Manutencao
         public ActionResult Index()
         {
-            Manutencao aux = new Manutencao();
-            List<Manutencao> list = new List<Manutencao>();
-            List<Tecnico> tecnicos = new List<Tecnico>();
-            List<Impressora> impressoras = new List<Impressora>();
-
-            list = aux.getManutencoes();
-            tecnicos = aux.GetTecnicos();
-            impressoras = aux.GetImpressoras();
-            if (tecnicos.Count == 0 || impressoras.Count == 0)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                ViewData["errorMsg"] = "É necessário o cadastro de ao menos um técnico e uma impressora para realizar o cadastro de uma manutenção";
+
+                return RedirectToAction("Index", "Login");
+
             }
+
             else
             {
-                ViewData["errorMsg"] = "";
+                Manutencao aux = new Manutencao();
+                List<Manutencao> list = new List<Manutencao>();
+                List<Tecnico> tecnicos = new List<Tecnico>();
+                List<Impressora> impressoras = new List<Impressora>();
+
+                list = aux.getManutencoes();
+                tecnicos = aux.GetTecnicos();
+                impressoras = aux.GetImpressoras();
+                if (tecnicos.Count == 0 || impressoras.Count == 0)
+                {
+                    ViewData["errorMsg"] = "É necessário o cadastro de ao menos um técnico e uma impressora para realizar o cadastro de uma manutenção";
+                }
+                else
+                {
+                    ViewData["errorMsg"] = "";
+                }
+                ViewData["tecnicos"] = tecnicos;
+                ViewData["impressoras"] = impressoras;
+                ViewBag.List = list;
+                return View(list);
             }
-            ViewData["tecnicos"] = tecnicos;
-            ViewData["impressoras"] = impressoras;
-            ViewBag.List = list;
-            return View(list);
         }
 
         [HttpPost]

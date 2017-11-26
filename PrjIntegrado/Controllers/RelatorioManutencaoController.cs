@@ -13,25 +13,36 @@ namespace PrjIntegrado.Controllers
         // GET: RelatorioManutencao
         public ActionResult Index()
         {
-            RelatorioManutencao aux = new RelatorioManutencao();
-            List<RelatorioManutencao> list = new List<RelatorioManutencao>();
-            list = aux.GetManutencoes(0, "");
-
-            Impressora auxImp = new Impressora();
-            List<string> names = new List<string>();
-
-            List<double> quantities = new List<double>();
-
-            foreach (var item in list)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                auxImp = auxImp.selectById(item.IdImpressora);
-                names.Add(auxImp.Nome);
-                quantities.Add(double.Parse(item.QuantManut.ToString()));
+
+                return RedirectToAction("Index", "Login");
+
             }
 
-            ViewData["listQuantity"] = quantities;
-            ViewData["listNames"] = names;
-            return View();
+            else
+            {
+                RelatorioManutencao aux = new RelatorioManutencao();
+                List<RelatorioManutencao> list = new List<RelatorioManutencao>();
+                list = aux.GetManutencoes(0, "");
+
+                Impressora auxImp = new Impressora();
+                List<string> names = new List<string>();
+
+                List<double> quantities = new List<double>();
+
+                foreach (var item in list)
+                {
+                    auxImp = auxImp.selectById(item.IdImpressora);
+                    names.Add(auxImp.Nome);
+                    quantities.Add(double.Parse(item.QuantManut.ToString()));
+                }
+
+                ViewData["listQuantity"] = quantities;
+                ViewData["listNames"] = names;
+                return View();
+            }
         }
 
         public ActionResult Filter(System.Web.Mvc.FormCollection collection)
