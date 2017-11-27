@@ -29,8 +29,15 @@
         <br>
         <label for="senha">Senha</label>
         <input type="password" name="senha" class="form-control" placeholder="Digite aqui sua senha"><br><br>
-       
         <input type="submit" name="login" value="Entrar" class="btn btn-success btn-lg btn-block">
+        <br><br>
+        @if (@ViewData["errorMsg"].Equals(1))
+            {
+            <div class="alert alert-danger" style="margin-left:-30%">
+                <p style="text-align:center">Acesso negado. Por favor verifique seu Login e senha </p>
+            </div>
+        }
+        
        
 </form>
    

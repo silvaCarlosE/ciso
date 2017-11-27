@@ -14,8 +14,16 @@ namespace PrjIntegrado.Controllers
     {
 
         // GET: Manutencao
-        public ActionResult Index()
+        public ActionResult Index(String var)
         {
+            if (var == null)
+            {
+                ViewData["errorMsg"] = 2;
+            }
+            else
+            {
+                ViewData["errorMsg"] = 1;
+            }
             return View();
         }
 
@@ -25,6 +33,7 @@ namespace PrjIntegrado.Controllers
         {
             String UserName = (collection[0]);
             String Senha = (collection[1]);
+            
             Login aux = new Login();
             bool result;
             result = aux.VerificaUsuarios(UserName, Senha);
@@ -32,12 +41,14 @@ namespace PrjIntegrado.Controllers
 
             if (result == false)
             {
-                MessageBox.Show("Acesso negado. Por favor verifique seu Login e senha");
-                return RedirectToAction("Index", "Login");
+
+
+                return RedirectToAction("Index", "Login", new { var = 1});
 
             }
             else
             {
+                
                 Session["UsersOnline"] = UserName;
                 return RedirectToAction("Index", "RankingPerda", new { UserName = UserName });
             }

@@ -119,7 +119,7 @@
                 }
                 else
                 {
-                    <p class="alert alert-info">@ViewData["errorMsg"]</p>
+                    <p class="alert alert-danger">@ViewData["errorMsg"]</p>
                 }                
                 <form action="@Url.Action("Insert", "Manutencao")" method="POST" class="form-group" onsubmit="validate()">
                     <div class="row">
