@@ -54,7 +54,7 @@
                     @if (((List<Manutencao>)ViewBag.List).Count() == 0)
                     {
                         <div class="alert alert-info">
-                            <p>Não existe nenhuma manutenção cadastrada. </p>
+                            <p>Não existe nenhuma manutenção cadastrada para a data informada. </p>
                         </div>
                     }
                     @foreach (var item in (List<Manutencao>)ViewBag.List)
@@ -76,7 +76,7 @@
                                     <td>@impressora.Nome</td>
                                 }
                             }
-                           
+
                             <td>@item.Valor_gasto</td>
                             <td style="text-align: center">
                                 <form action="@Url.Action("Update", "Manutencao", new {id = item.Id})" method="post">
@@ -120,7 +120,7 @@
                 else
                 {
                     <p class="alert alert-info">@ViewData["errorMsg"]</p>
-                }                
+                }
                 <form action="@Url.Action("Insert", "Manutencao")" method="POST" class="form-group" onsubmit="validate()">
                     <div class="row">
                         <div class="col-md-6">
@@ -138,11 +138,11 @@
 
                                 <label for="id-tecnico">Técnico</label>
                                 <select name="tecnicos" class="form-control" required>
-                                   @foreach (var tecnico in tecnicos)
-                                   {
-                                       <option value="@tecnico.Id">@tecnico.Nome</option>
-                                   }
-                                </select>                                
+                                    @foreach (var tecnico in tecnicos)
+                                    {
+                                        <option value="@tecnico.Id">@tecnico.Nome</option>
+                                    }
+                                </select>
 
                                 <label for="id-impressora">Impressora</label>
                                 <select name="impressoras" class="form-control" required>

@@ -54,6 +54,7 @@ namespace PrjIntegrado.Controllers
             Impressora aux = new Impressora();
             bool result;
             result = aux.DeleteImpressora(idToExclude);
+            ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
 
@@ -67,6 +68,7 @@ namespace PrjIntegrado.Controllers
             aux.Tipo_tinta = collection[3];
             aux.Id_loja = int.Parse(collection[4]);
             bool result = aux.Update(aux);
+            ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
 
@@ -80,6 +82,7 @@ namespace PrjIntegrado.Controllers
             aux.Id_loja = int.Parse(collection[4]);
             bool result;
             result = aux.Insert(aux);
+            ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
 
@@ -90,6 +93,9 @@ namespace PrjIntegrado.Controllers
             Impressora aux = new Impressora();
             List<Impressora> list = new List<Impressora>();
             list = aux.getImpressoras(nome);
+            List<int> ids = new List<int>();
+            ids = aux.GetLojas();
+            ViewData["lojas"] = ids;
             ViewBag.List = list;
             return View(list);
         }

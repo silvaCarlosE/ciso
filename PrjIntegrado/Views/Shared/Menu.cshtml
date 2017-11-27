@@ -30,7 +30,7 @@
                      @Html.ActionLink("Perdas de papel", "Index", "Perda")
                 </li>
                 <li role="presentation">
-                     Solicitar papel
+                    @Html.ActionLink("Solicitar papel", "Index", "SolicitarPapel")
                 </li>
                 <li>
                      @Html.ActionLink("Tipos de papel", "Index", "TipoPapel")
@@ -53,10 +53,10 @@
                     @Html.ActionLink("Relatório de manutenções", "Index", "RelatorioManutencao")
                 </li>
                 <li role="presentation">
-                    <span class="glyphicon glyphicon-stats"></span> - Relatório de Perda
+                    @Html.ActionLink("Relatório de perdas", "Index", "RelatorioPerda")
                 </li>
                 <li role="presentation">
-                    <span class="glyphicon glyphicon-stats"></span> - Relatório de gastos
+                    @Html.ActionLink("Relatório de gastos", "Index", "RelatorioGastos")
                 </li>
             </ul>
         </li>

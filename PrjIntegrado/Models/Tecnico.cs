@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Windows.Forms;
 
 namespace PrjIntegrado.Models
 {
     public class Tecnico
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "Campo nome é obrigatório")]
         public string Nome { get; set; }
-        [Required(ErrorMessage = "Campo cpf é obrigatório")]
         public string Cpf { get; set; }
 
         public List<Tecnico> getTecnicos()

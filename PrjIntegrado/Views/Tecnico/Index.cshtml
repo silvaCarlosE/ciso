@@ -3,11 +3,11 @@
 @model List<Tecnico>
 @{
     Layout = null;
+
 }
 
 @RenderPage("~/Views/Shared/Header.cshtml")
 @RenderPage("~/Views/Shared/Menu.cshtml")
-
 
 <div class="col-md-10 col-sm-10 col-xs-8">
     <div class="content">
@@ -18,7 +18,7 @@
         </div>
         <form action="@Url.Action("Search", "Tecnico")" method="post">
             <div class="input col-md-5">
-                <input type="text" name="nome" class="form-control">
+                <input type="text" name="nome" class="form-control" placeholder="Digite o nome de um técnico">
             </div>
             <div>
                 <button type="submit" name="buscaNome" class="btn btn-primary">

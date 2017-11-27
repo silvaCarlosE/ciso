@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using System.Windows.Forms;
 
 namespace PrjIntegrado.Controllers
@@ -28,6 +29,7 @@ namespace PrjIntegrado.Controllers
                 List<Tecnico> list = new List<Tecnico>();
                 list = aux.getTecnicos();
                 ViewBag.List = list;
+                ViewData["msg"] = "Index";
                 return View(list);
             }
         }
@@ -48,6 +50,7 @@ namespace PrjIntegrado.Controllers
             Tecnico aux = new Tecnico();
             bool result;
             result = aux.DeleteTecnico(idToExclude);
+            ViewData["msg"] = result;
             return RedirectToAction("Index");
         }
 
@@ -59,6 +62,14 @@ namespace PrjIntegrado.Controllers
             aux.Nome = collection[1];
             aux.Cpf = collection[2];
             bool result = aux.Update(aux);
+            if (result == true)
+            {
+                ViewData["msg"] = "Dados inseridos com sucesso.";
+            }
+            else
+            {
+                ViewData["msg"] = "Erro";
+            }                       
             return RedirectToAction("Index");
         }
 
@@ -70,6 +81,7 @@ namespace PrjIntegrado.Controllers
             aux.Cpf = collection[2];
             bool result;
             result = aux.Insert(aux);
+            ViewData["msg"] = result;
             return RedirectToAction("Index");
         }
 
@@ -81,6 +93,8 @@ namespace PrjIntegrado.Controllers
             List<Tecnico> list = new List<Tecnico>();
             list = aux.getTecnicos(nome);
             ViewBag.List = list;
+            ViewData["tecnicos"] = list;
+            ViewData["msg"] = "A busca foi feita com os parâmetros solicitados.";
             return View(list);
         }
     }

@@ -70,6 +70,7 @@ namespace PrjIntegrado.Controllers
             Manutencao aux = new Manutencao();
             bool result;
             result = aux.DeleteManutencao(idToExclude);
+            ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
 
@@ -84,6 +85,7 @@ namespace PrjIntegrado.Controllers
             aux.Id_impressora = int.Parse(collection[4]);
             aux.Valor_gasto = double.Parse(collection[5]);
             bool result = aux.Update(aux);
+            ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
 
@@ -98,16 +100,32 @@ namespace PrjIntegrado.Controllers
             aux.Valor_gasto = int.Parse(collection[5]);
             bool result;
             result = aux.Insert(aux);
+            ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Search(System.Web.Mvc.FormCollection collection)
         {
-            string nome = collection[0];
+            string data = collection[0];
             Manutencao aux = new Manutencao();
             List<Manutencao> list = new List<Manutencao>();
-            list = aux.getManutencoes(nome);
+            List<Tecnico> tecnicos = new List<Tecnico>();
+            List<Impressora> impressoras = new List<Impressora>();
+
+            list = aux.getManutencoes(data);
+            tecnicos = aux.GetTecnicos();
+            impressoras = aux.GetImpressoras();
+            if (tecnicos.Count == 0 || impressoras.Count == 0)
+            {
+                ViewData["errorMsg"] = "É necessário o cadastro de ao menos um técnico e uma impressora para realizar o cadastro de uma manutenção";
+            }
+            else
+            {
+                ViewData["errorMsg"] = "";
+            }
+            ViewData["tecnicos"] = tecnicos;
+            ViewData["impressoras"] = impressoras;
             ViewBag.List = list;
             return View(list);
         }

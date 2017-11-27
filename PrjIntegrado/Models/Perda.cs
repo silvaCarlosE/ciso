@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Windows.Forms;
 
 namespace PrjIntegrado.Models
 {
@@ -20,11 +21,12 @@ namespace PrjIntegrado.Models
             string tableName = "perdas";
             string fields = " id_perda, quantidade, DATE_FORMAT(dataperda, '%Y-%m-%d'), id_tipo_papel, id_func ";
             var result = dbConnection.Select(tableName, fields);
+            
             if (result.HasRows)
-            {
-                Perda aux = new Perda();
+            {                
                 while (result.Read())
-                {                    
+                {
+                    Perda aux = new Perda();
                     aux.Id = result.GetInt32(0);
                     aux.Quantidade = result.GetInt32(1);
                     aux.Data = result.GetString(2);
@@ -42,6 +44,29 @@ namespace PrjIntegrado.Models
             List<Perda> perdas = new List<Perda>();
             string statement = "SELECT SUM(QUANTIDADE) FROM PERDAS GROUP BY ID_FUNC";
             var result = dbConnection.GenericQuery(statement);
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    Perda aux = new Perda();
+                    aux.Id = result.GetInt32(0);
+                    aux.Quantidade = result.GetInt32(1);
+                    aux.Data = result.GetString(2);
+                    aux.Id_tipo_papel = result.GetInt32(3);
+                    aux.Id_funcionario = result.GetInt32(4);
+                    perdas.Add(aux);
+                }
+            }
+            return perdas;
+        }
+
+        public List<Perda> SearchPerda(string data)
+        {
+            DbConnection dbConnection = new DbConnection();
+            List<Perda> perdas = new List<Perda>();
+            string table = "perdas";
+            string like = " dataperda = '" + data + "'";
+            var result = dbConnection.Search(table, like);
             if (result.HasRows)
             {
                 while (result.Read())

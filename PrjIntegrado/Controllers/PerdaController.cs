@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 
 namespace PrjIntegrado.Controllers
 {
@@ -27,7 +28,6 @@ namespace PrjIntegrado.Controllers
                 List<Perda> list = new List<Perda>();
                 List<Funcionario> funcionarios = new List<Funcionario>();
                 List<TipoPapel> tiposPapel = new List<TipoPapel>();
-
                 list = aux.getPerdas();
                 funcionarios = aux.GetFuncionarios();
                 tiposPapel = aux.getTiposPapel();
@@ -82,6 +82,7 @@ namespace PrjIntegrado.Controllers
             aux.Id_tipo_papel = int.Parse(collection[3]);
             aux.Id_funcionario = int.Parse(collection[4]);
             bool result = aux.Update(aux);
+            ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
 
@@ -95,16 +96,31 @@ namespace PrjIntegrado.Controllers
             aux.Id_funcionario = int.Parse(collection[4]);
             bool result;
             result = aux.Insert(aux);
+            ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Search(System.Web.Mvc.FormCollection collection)
         {
-            string nome = collection[0];
+            string data = collection[0];
             Perda aux = new Perda();
             List<Perda> list = new List<Perda>();
-            list = aux.getPerdas(nome);
+            List<Funcionario> funcionarios = new List<Funcionario>();
+            List<TipoPapel> tiposPapel = new List<TipoPapel>();
+            list = aux.SearchPerda(data);
+            funcionarios = aux.GetFuncionarios();
+            tiposPapel = aux.getTiposPapel();
+            if (funcionarios.Count == 0 || tiposPapel.Count == 0)
+            {
+                ViewData["errorMsg"] = "É necessário o cadastro de ao menos um funcionário e um tipo de papel para realizar o cadastro de uma perda";
+            }
+            else
+            {
+                ViewData["errorMsg"] = "";
+            }
+            ViewData["funcionarios"] = funcionarios;
+            ViewData["tiposPapel"] = tiposPapel;
             ViewBag.List = list;
             return View(list);
         }

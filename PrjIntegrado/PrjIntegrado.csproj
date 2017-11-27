@@ -196,6 +196,7 @@
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\util.css" />
     <Content Include="docs\MySqlCommand.xml" />
     <Content Include="docs\MySqlCommandBuilder.xml" />
     <Content Include="docs\MySqlConnection.xml" />
@@ -281,6 +282,9 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\SolicitarPapel\Index.cshtml" />
     <Content Include="Views\SolicitarPapel\Update.cshtml" />
+    <Content Include="Views\Impressora\Search.cshtml" />
+    <Content Include="Views\Manutencao\Search.cshtml" />
+    <Content Include="Views\Perda\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

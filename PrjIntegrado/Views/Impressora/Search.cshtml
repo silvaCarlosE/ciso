@@ -6,7 +6,7 @@
     Layout = null;
 }
 
-@{ 
+@{
     List<int> ids = new List<int>();
     ids = (List<int>)ViewData["lojas"];
 }
@@ -49,7 +49,7 @@
                     @if (((List<Impressora>)ViewBag.List).Count() == 0)
                     {
                         <div class="alert alert-info">
-                            <p>Não existe nenhuma impressora cadastrada. </p>
+                            <p>Não existe nenhuma impressora cadastrada com o nome informado. </p>
                         </div>
                     }
                     @foreach (var item in (List<Impressora>)ViewBag.List)
@@ -97,7 +97,7 @@
                 <form action="@Url.Action("Insert", "Impressora")" method="POST" class="form-group" onsubmit="validate()">
                     <div class="row">
                         <div class="col-md-6">
-                            
+
                             <img src="~/Img/impressora-icone.jpg" width="70%" />
                         </div>
                         <div class="form-group">

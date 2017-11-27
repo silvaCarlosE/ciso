@@ -52,7 +52,7 @@
                     @if (((List<Perda>)ViewBag.List).Count() == 0)
                     {
                         <div class="alert alert-info">
-                            <p>Não existe nenhuma perda cadastrada. </p>
+                            <p>Não foi encontrada nenhuma perda na data especificada. </p>
                         </div>
                     }
                     else
@@ -104,12 +104,12 @@
                 {
                     <p class="alert alert-info">@ViewData["errorMsg"]</p>
                 }
-                
+
                 <form action="@Url.Action("Insert", "Perda")" method="POST" class="form-group" onsubmit="validate()">
                     <div class="row">
                         <div class="col-md-6">
                             <!---OLAAA-->
-                            <img src="~/Img/papel-icone.png"style=" width:80%" />
+                            <img src="~/Img/papel-icone.png" style=" width:80%" />
                         </div>
                         <div class="form-group">
                             <div class="col-md-6">
@@ -143,7 +143,7 @@
                         <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
                         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
                     </div>
-                </form>                
+                </form>
             </div>
         </div>
     </div>

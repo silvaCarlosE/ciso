@@ -77,7 +77,7 @@ namespace PrjIntegrado.Controllers
 
             ViewData["listQuantity"] = quantities;
             ViewData["listNames"] = names;
-            return View("Index");
+            return Redirect(this.Request.UrlReferrer.AbsolutePath);
         }
     }
 }

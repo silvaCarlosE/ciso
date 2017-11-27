@@ -40,12 +40,12 @@ namespace PrjIntegrado.Models
             return manutencao;
         }
 
-        public List<Manutencao> getManutencoes(string defeito)
+        public List<Manutencao> getManutencoes(string data)
         {
             DbConnection dbConnection = new DbConnection();
             List<Manutencao> manutencao = new List<Manutencao>();
             string table = "manutencoes";
-            string like = " defeito LIKE '%" + defeito + "%'";
+            string like = " data_manut = '" + data + "'";
             var result = dbConnection.Search(table, like);
             if (result.HasRows)
             {
