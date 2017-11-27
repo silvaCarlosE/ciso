@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Windows.Forms;
 
 namespace PrjIntegrado.Models
 {
@@ -30,6 +31,28 @@ namespace PrjIntegrado.Models
                     aux.Ids = result.GetInt32(0);
                     aux.IdTipo = result.GetInt32(1);
 
+                    SolicitarPapel.Add(aux);
+                }
+            }
+            return SolicitarPapel;
+        }
+
+        public List<SolicitarPapel> GetSolicitarPapel(string tipo)
+        {
+            DbConnection dbConnection = new DbConnection();
+            List<SolicitarPapel> SolicitarPapel = new List<SolicitarPapel>();
+            string stmt = "select * from solicitacoes_papel where id_tipo_papel IN (SELECT id_tipo_papel FROM tipo_papel WHERE tipo LIKE '% " + tipo +"%');";
+            var result = dbConnection.GenericQuery(stmt);
+            MessageBox.Show(tipo);
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    SolicitarPapel aux = new SolicitarPapel();
+                    aux.Ids = result.GetInt32(0);
+                    MessageBox.Show(result.GetInt32(0).ToString());
+                    aux.IdTipo = result.GetInt32(1);
+                    MessageBox.Show(result.GetInt32(1).ToString());
                     SolicitarPapel.Add(aux);
                 }
             }
@@ -119,5 +142,3 @@ namespace PrjIntegrado.Models
         }
     }
 }
-
-

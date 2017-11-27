@@ -37,8 +37,7 @@ namespace PrjIntegrado.Controllers
         {
             TipoPapel aux = new TipoPapel();
             aux = aux.selectById(int.Parse(collection[0]));
-            ViewData["TipoPapel"] = aux;
-           
+            ViewData["TipoPapel"] = aux;           
             return View();
         }
 
@@ -82,10 +81,10 @@ namespace PrjIntegrado.Controllers
         public ActionResult Search(System.Web.Mvc.FormCollection collection)
         {
             TipoPapel aux = new TipoPapel();
-            aux = aux.selectById(int.Parse(collection[0]));
-            ViewData["TipoPapel"] = aux;
-
-            return View();
+            List<TipoPapel> list = new List<TipoPapel>();
+            list = aux.getTipoPapel(collection[0]);
+            ViewBag.List = list;
+            return View(list);
         }
     }
 }

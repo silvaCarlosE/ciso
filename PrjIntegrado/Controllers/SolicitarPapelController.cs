@@ -100,11 +100,31 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Search(System.Web.Mvc.FormCollection collection)
         {
-            TipoPapel aux = new TipoPapel();
-            aux = aux.selectById(int.Parse(collection[0]));
-            ViewData["TipoPapel"] = aux;
+            string tipoPapel = "";
 
-            return View();
+            if (collection[0] != "")
+            {
+                tipoPapel = collection[0];
+            }
+            SolicitarPapel aux = new SolicitarPapel();
+            List<SolicitarPapel> list = new List<SolicitarPapel>();
+            List<TipoPapel> TipoPapel = new List<TipoPapel>();
+
+            list = aux.GetSolicitarPapel(tipoPapel);
+            TipoPapel = aux.GetTipoPapel();
+
+            if (TipoPapel.Count == 0)
+            {
+                ViewData["errorMsg"] = "É necessário o cadastro de ao menos um tipo de papel para realizar o cadastro de uma solicitação";
+            }
+            else
+            {
+                ViewData["errorMsg"] = "";
+            }
+            ViewData["TipoPapel"] = TipoPapel;
+
+            ViewBag.List = list;
+            return View(list);
         }
     }
 }

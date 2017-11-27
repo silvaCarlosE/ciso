@@ -285,6 +285,7 @@
     <Content Include="Views\Impressora\Search.cshtml" />
     <Content Include="Views\Manutencao\Search.cshtml" />
     <Content Include="Views\Perda\Search.cshtml" />
+    <Content Include="Views\SolicitarPapel\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

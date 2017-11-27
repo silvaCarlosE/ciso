@@ -13,12 +13,12 @@
     <div class="content">
         <div class="title">
             <h2>
-                Tipo de Papel.
+                Tipo de Papel
             </h2>
         </div>
         <form action="@Url.Action("Search", "TipoPapel")" method="post">
             <div class="input col-md-5">
-                <input type="text" name="tipo" class="form-control">
+                <input type="text" name="tipo" class="form-control" placeholder="Digite o nome do tipo de papel desejado">
             </div>
             <div>
                 <button type="submit" name="buscaTipo" class="btn btn-primary">
@@ -42,7 +42,7 @@
                     @if (((List<TipoPapel>)ViewBag.List).Count() == 0)
                     {
                         <div class="alert alert-info">
-                            <p>Não existe nenhuma tipo de papel cadastrado. </p>
+                            <p>Não existe nenhum tipo de papel cadastrado. </p>
                         </div>
                     }
                     @foreach (var item in (List<TipoPapel>)ViewBag.List)
