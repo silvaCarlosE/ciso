@@ -36,6 +36,11 @@ namespace PrjIntegrado.Controllers
                 tiposPapel = auxTipo.getTipoPapel();
                 ViewData["tiposPapel"] = tiposPapel;
 
+                SolicitarPapel auxSol = new SolicitarPapel();
+                List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
+                solicitacoes = auxSol.GetSolicitarPapel();
+                ViewData["solicitacoes"] = solicitacoes;
+
                 return View(list);
             }
         }
@@ -44,10 +49,11 @@ namespace PrjIntegrado.Controllers
             public ActionResult Create(System.Web.Mvc.FormCollection collection)
             {
                 Compra compra = new Compra();
-                compra.Quantidade = int.Parse(collection[1]);
-                compra.IdTipoPapel = int.Parse(collection[2]);
-                compra.Data = collection[3];
-                compra.Valor = float.Parse(collection[4]);
+                compra.SolicitacaoID = int.Parse(collection[1]);
+                compra.Quantidade = int.Parse(collection[2]);
+                compra.IdTipoPapel = int.Parse(collection[3]);
+                compra.Data = collection[4];
+                compra.Valor = float.Parse(collection[5].ToString());
                 bool result = compra.Insert(compra);
                 return RedirectToAction("Index");
             }
@@ -62,6 +68,11 @@ namespace PrjIntegrado.Controllers
             TipoPapel tipoPapel = new TipoPapel();
             tiposPapel = tipoPapel.getTipoPapel();
 
+            SolicitarPapel solicitar = new SolicitarPapel();
+            List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
+            solicitacoes = solicitar.GetSolicitarPapel();
+
+            ViewData["solicitacoes"] = solicitacoes;
             ViewData["tiposPapel"] = tiposPapel;
             ViewData["aux"] = aux;
             return View();
@@ -72,10 +83,11 @@ namespace PrjIntegrado.Controllers
         {
             Compra aux = new Compra();
             aux.CompraID = int.Parse(collection[0]);
-            aux.Quantidade = int.Parse(collection[1]);
-            aux.IdTipoPapel = int.Parse(collection[2]);
-            aux.Data = collection[3];
-            aux.Valor = float.Parse(collection[4]);
+            aux.SolicitacaoID = int.Parse(collection[1]);
+            aux.Quantidade = int.Parse(collection[2]);
+            aux.IdTipoPapel = int.Parse(collection[3]);
+            aux.Data = collection[4];
+            aux.Valor = float.Parse(collection[5]);
             bool result = aux.Save(aux);
             return RedirectToAction("Index");
         }

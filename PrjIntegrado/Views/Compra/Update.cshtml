@@ -6,6 +6,9 @@
 
     List<TipoPapel> tiposPapel = new List<TipoPapel>();
     tiposPapel = (List<TipoPapel>)ViewData["tiposPapel"];
+
+    List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
+    solicitacoes = (List<SolicitarPapel>)ViewData["solicitacoes"];
 }
 
 @{
@@ -23,6 +26,13 @@
         <div class="form-group">
             <div class="col-md-8">
                 <input type="hidden" id="edit-compra" name="id_compra" value="@aux.CompraID">
+                <label for="Solicitacao">Solicitação</label>
+                <select class="form-control" name="Solicitacao">
+                    @foreach (var item in solicitacoes)
+                    {
+                        <option value="@item.Ids">@item.Ids</option>
+                    }
+                </select>
                 <label for="nome">Quantidade</label>
                 <input class="form-control" required maxlength="45" type="text" name="quantidade" value="@aux.Quantidade">
                 <label for="TipoPapel">Tipo de papel</label>

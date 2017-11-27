@@ -8,9 +8,13 @@
 @{
     List<Compra> list = new List<Compra>();
     List<TipoPapel> tiposPapel = new List<TipoPapel>();
+    List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
+
 
     list = (List<Compra>)ViewData["list"];
     tiposPapel = (List<TipoPapel>)ViewData["tiposPapel"];
+    solicitacoes = (List<SolicitarPapel>)ViewData["solicitacoes"];
+
 }
 
 @RenderPage("~/Views/Shared/Header.cshtml")
@@ -37,6 +41,7 @@
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th>Solicitação</th>
                         <th>Quantidade</th>
                         <th>Tipo de papel</th>
                         <th>Data</th>
@@ -49,6 +54,7 @@
                     @foreach (var item in list)
                     {
                         <tr>
+                            <td>@item.SolicitacaoID</td>
                             <td>@item.Quantidade</td>
                             <td>@item.IdTipoPapel</td>
                             <td>@item.Data</td>
@@ -97,6 +103,14 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <input type="hidden" name="id_compra" value="">
+
+                                <label for="Solicitacao">Solicitação</label>
+                                <select class="form-control" name="Solicitacao">
+                                    @foreach (var item in solicitacoes)
+                                    {
+                                        <option value="@item.Ids">@item.Ids</option>
+                                    }
+                                </select>
 
                                 <label for="quantidade">Quantidade</label>
                                 <input class="form-control" required maxlength="45" type="text" name="quantidade">
