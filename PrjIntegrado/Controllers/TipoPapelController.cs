@@ -48,6 +48,10 @@ namespace PrjIntegrado.Controllers
             TipoPapel aux = new TipoPapel();
             bool result;
             result = aux.DeleteTipoPapel(idToExclude);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
@@ -61,6 +65,10 @@ namespace PrjIntegrado.Controllers
             aux.Gramatura= int.Parse(collection[3]);
            
             bool result = aux.Update(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
@@ -74,6 +82,10 @@ namespace PrjIntegrado.Controllers
             aux.Gramatura = int.Parse(collection[3]);
             bool result;
             result = aux.Insert(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 

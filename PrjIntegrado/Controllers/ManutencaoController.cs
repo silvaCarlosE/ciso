@@ -70,6 +70,10 @@ namespace PrjIntegrado.Controllers
             Manutencao aux = new Manutencao();
             bool result;
             result = aux.DeleteManutencao(idToExclude);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
@@ -85,6 +89,10 @@ namespace PrjIntegrado.Controllers
             aux.Id_impressora = int.Parse(collection[4]);
             aux.Valor_gasto = double.Parse(collection[5]);
             bool result = aux.Update(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
@@ -100,6 +108,10 @@ namespace PrjIntegrado.Controllers
             aux.Valor_gasto = int.Parse(collection[5]);
             bool result;
             result = aux.Insert(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
@@ -116,14 +128,6 @@ namespace PrjIntegrado.Controllers
             list = aux.getManutencoes(data);
             tecnicos = aux.GetTecnicos();
             impressoras = aux.GetImpressoras();
-            if (tecnicos.Count == 0 || impressoras.Count == 0)
-            {
-                ViewData["errorMsg"] = "É necessário o cadastro de ao menos um técnico e uma impressora para realizar o cadastro de uma manutenção";
-            }
-            else
-            {
-                ViewData["errorMsg"] = "";
-            }
             ViewData["tecnicos"] = tecnicos;
             ViewData["impressoras"] = impressoras;
             ViewBag.List = list;

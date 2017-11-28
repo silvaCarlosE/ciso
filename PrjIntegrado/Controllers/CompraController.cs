@@ -55,6 +55,10 @@ namespace PrjIntegrado.Controllers
                 compra.Data = collection[4];
                 compra.Valor = float.Parse(collection[5].ToString());
                 bool result = compra.Insert(compra);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
                 return RedirectToAction("Index");
             }
 
@@ -89,6 +93,10 @@ namespace PrjIntegrado.Controllers
             aux.Data = collection[4];
             aux.Valor = float.Parse(collection[5]);
             bool result = aux.Save(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
@@ -99,6 +107,10 @@ namespace PrjIntegrado.Controllers
             Compra aux = new Compra();
             bool result;
             result = aux.Delete(idToExclude);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
     }

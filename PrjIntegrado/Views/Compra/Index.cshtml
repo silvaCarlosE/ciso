@@ -26,6 +26,10 @@
                 Compras
             </h2>
         </div>
+        @if (TempData["notice"] != null)
+        {
+            <p class="alert alert-info"> Operação concluída. </p>
+        }
         <form>
             <div class="input col-md-5">
                 <input type="text" name="nome" class="form-control">
@@ -68,9 +72,9 @@
                                 </form>
                             </td>
                             <td style="text-align: center">
-                                <form action="@Url.Action("Delete", "Compra")" method="post">
+                                <form action="@Url.Action("Delete", "Compra")" method="post" onsubmit="return validate(this);">
                                     <input type="hidden" value="@item.CompraID" name="excluir" />
-                                    <button type="submit" onclick="excluir()" name="excluir" id="exclude-button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir">
+                                    <button type="submit" name="excluir" id="exclude-button" class="btn btn-danger">
                                         <span class="glyphicon glyphicon-trash"></span> Excluir
                                     </button>
                                 </form>
@@ -144,3 +148,8 @@
     </div>
 </div>
 @RenderPage("~/Views/Shared/Footer.cshtml")
+<script type="text/javascript">
+    function validate(form) {
+        return confirm('Deseja realmente deletar esse registro?');
+    }
+</script>

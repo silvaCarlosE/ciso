@@ -51,8 +51,6 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Create(System.Web.Mvc.FormCollection collection)
         {
-
-
             Funcionario funcionario = new Funcionario();
             funcionario.Nome = collection[1];
             funcionario.CPF = collection[2];
@@ -67,16 +65,16 @@ namespace PrjIntegrado.Controllers
         {
             Funcionario aux = new Funcionario();
             aux.FuncionarioID = int.Parse(collection[0]);
-
             aux = aux.selectById(aux.FuncionarioID);
             ViewData["aux"] = aux;
-
             Loja loja = new Loja();
             List<Loja> listaLojas = loja.getLojas();
-
             ViewData["listaLojas"] = listaLojas;
-
             bool result = aux.Save(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return View();
         }
 
@@ -89,7 +87,12 @@ namespace PrjIntegrado.Controllers
             aux.CPF = collection[2];
             aux.Cargo = collection[3];
             aux.LojaFuncionarioID = collection[4];
+            TempData["notice"] = "inserted";
             bool result = aux.Save(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
@@ -100,6 +103,10 @@ namespace PrjIntegrado.Controllers
             Funcionario aux = new Funcionario();
             bool result;
             result = aux.Delete(idToExclude);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
     }

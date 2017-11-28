@@ -22,6 +22,10 @@
                 Impressoras
             </h2>
         </div>
+        @if (TempData["notice"] != null)
+        {
+            <p class="alert alert-info"> Operação concluída. </p>
+        }
         <form action="@Url.Action("Search", "Impressora")" method="post">
             <div class="input col-md-5">
                 <input type="text" name="nome" class="form-control" placeholder="Digite o nome da impressora">
@@ -68,7 +72,7 @@
                                 </form>
                             </td>
                             <td style="text-align: center">
-                                <form action="@Url.Action("Delete", "Impressora")" method="post">
+                                <form action="@Url.Action("Delete", "Impressora")" method="post" onsubmit="return validate(this);">
                                     <input type="hidden" value="@item.Id" name="excluir" />
                                     <button type="submit" onclick="excluir()" name="excluir" id="exclude-button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir">
                                         <span class="glyphicon glyphicon-trash"></span> Excluir
@@ -94,7 +98,7 @@
                 <h4 class="modal-title">Adicionar Impressora</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action("Insert", "Impressora")" method="POST" class="form-group" onsubmit="validate()">
+                <form action="@Url.Action("Insert", "Impressora")" method="POST" class="form-group">
                     <div class="row">
                         <div class="col-md-6">
                             
@@ -131,3 +135,8 @@
 </div>
 
 @RenderPage("~/Views/Shared/Footer.cshtml")
+<script type="text/javascript">
+    function validate(form) {
+        return confirm('Deseja realmente deletar esse registro?');
+    }
+</script>

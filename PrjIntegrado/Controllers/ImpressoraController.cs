@@ -54,6 +54,10 @@ namespace PrjIntegrado.Controllers
             Impressora aux = new Impressora();
             bool result;
             result = aux.DeleteImpressora(idToExclude);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
@@ -69,6 +73,10 @@ namespace PrjIntegrado.Controllers
             aux.Id_loja = int.Parse(collection[4]);
             bool result = aux.Update(aux);
             ViewData["actionResult"] = result;
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
@@ -83,6 +91,10 @@ namespace PrjIntegrado.Controllers
             bool result;
             result = aux.Insert(aux);
             ViewData["actionResult"] = result;
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 

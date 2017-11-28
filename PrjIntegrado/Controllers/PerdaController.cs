@@ -69,6 +69,10 @@ namespace PrjIntegrado.Controllers
             Perda aux = new Perda();
             bool result;
             result = aux.DeletePerda(idToExclude);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
@@ -82,6 +86,10 @@ namespace PrjIntegrado.Controllers
             aux.Id_tipo_papel = int.Parse(collection[3]);
             aux.Id_funcionario = int.Parse(collection[4]);
             bool result = aux.Update(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }
@@ -96,6 +104,10 @@ namespace PrjIntegrado.Controllers
             aux.Id_funcionario = int.Parse(collection[4]);
             bool result;
             result = aux.Insert(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             ViewData["actionResult"] = result;
             return RedirectToAction("Index");
         }

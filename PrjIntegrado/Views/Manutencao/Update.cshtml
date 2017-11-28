@@ -57,7 +57,7 @@
     </div>
     <div class="padding">
         <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
-        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn" data-dismiss="modal" onclick="@("window.location.href='" + @Url.Action("Index", "Manutencao") + "'");">Cancelar</button>
     </div>
 </form>
 @RenderPage("~/Views/Shared/Footer.cshtml")

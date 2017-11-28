@@ -71,6 +71,10 @@ namespace PrjIntegrado.Controllers
             SolicitarPapel aux = new SolicitarPapel();
             bool result;
             result = aux.DeleteSolicitarPapel(idToExclude);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
@@ -82,6 +86,10 @@ namespace PrjIntegrado.Controllers
             aux.Ids = int.Parse(Regex.Replace(collection[0], " ", ""));
            
             bool result = aux.Update(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
@@ -94,6 +102,10 @@ namespace PrjIntegrado.Controllers
             
             bool result;
             result = aux.Insert(aux);
+            if (result == true)
+            {
+                TempData["notice"] = "inserted";
+            }
             return RedirectToAction("Index");
         }
 
