@@ -1,7 +1,7 @@
 ﻿
 @using PrjIntegrado.Models;
 
-@model List<SolicitarPapel>
+@*@model List<SolicitarPapel>*@
 
 @{
     Layout = null;
@@ -11,6 +11,9 @@
 
     List<TipoPapel> TipoPapel = new List<TipoPapel>();
     TipoPapel = (List<TipoPapel>)ViewData["TipoPapel"];
+
+    List<SolicitarPapel> list = new List<SolicitarPapel>();
+    list = (List<SolicitarPapel>)ViewData["list"];
 
 }
 
@@ -53,21 +56,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (((List<SolicitarPapel>)ViewBag.List).Count() == 0)
+                    @if (list.Count() == 0)
                     {
                         <div class="alert alert-info">
                             <p>Não existe nenhuma solicitação cadastrada. </p>
                         </div>
                     }
                     
-                    @foreach (var item in (List<SolicitarPapel>)ViewBag.List) 
+                    @foreach (var item in list) 
                     {
 
                         <tr>
                             <td>@item.Ids</td>
                             @foreach (var item2 in TipoPapel)
                             {
-                                if (item2.Id == item.Ids)
+                                if (item2.Id == item.IdTipo)
                                 {
                                     <td>@item2.Tipo</td>
                                     <td>@item2.Tamanho</td>

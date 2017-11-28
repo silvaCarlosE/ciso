@@ -33,7 +33,7 @@ namespace PrjIntegrado
             connection = new MySqlConnection(connectionString);
         }
 
-        private bool estabilishConnection()
+        private bool EstabilishConnection()
         {
             try
             {
@@ -45,6 +45,7 @@ namespace PrjIntegrado
                 throw new Exception("Erro de conexão com o banco de dados", ex);
                 return false;
             }
+            
         }
 
         private bool closeConnection()
@@ -63,7 +64,7 @@ namespace PrjIntegrado
 
         public MySqlDataReader Select(string table, string fields)
         {
-            if (this.estabilishConnection() == true)
+            if (this.EstabilishConnection() == true)
             {
                 string query = "SELECT " + fields + " FROM " + table;
                 try
@@ -89,7 +90,7 @@ namespace PrjIntegrado
 
         public void Insert(string table, string fields, string values)
         {
-            if (estabilishConnection() == true)
+            if (EstabilishConnection() == true)
             {
                 try
                 {
@@ -106,7 +107,7 @@ namespace PrjIntegrado
 
         public void Update(string table, string fields, string condition)
         {
-            if (estabilishConnection() == true)
+            if (EstabilishConnection() == true)
             {
                 string update = "update " + table + " set " + fields + " where " + condition;
                 try
@@ -123,7 +124,7 @@ namespace PrjIntegrado
 
         public void Delete(string table, string condition)
         {
-            if (estabilishConnection() == true)
+            if (EstabilishConnection() == true)
             {
                 try
                 {
@@ -140,7 +141,7 @@ namespace PrjIntegrado
 
         public MySqlDataReader SelectById(string table, string fields, string id_field, int id)
         {
-            if (this.estabilishConnection() == true)
+            if (this.EstabilishConnection() == true)
             {
                 try
                 {
@@ -166,7 +167,7 @@ namespace PrjIntegrado
 
         public MySqlDataReader Search(string table, string like)
         {
-            if (this.estabilishConnection() == true)
+            if (this.EstabilishConnection() == true)
             {
                 try
                 {
@@ -192,7 +193,7 @@ namespace PrjIntegrado
 
         public MySqlDataReader GenericQuery(string statement)
         {
-            if (this.estabilishConnection() == true)
+            if (this.EstabilishConnection() == true)
             {
                 try
                 {

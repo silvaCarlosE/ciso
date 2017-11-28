@@ -26,7 +26,6 @@ namespace PrjIntegrado.Controllers
             else
             {
 
-                
                 SolicitarPapel aux = new SolicitarPapel();
                 List<SolicitarPapel> list = new List<SolicitarPapel>();
                 List<TipoPapel> TipoPapel = new List<TipoPapel>();
@@ -45,7 +44,7 @@ namespace PrjIntegrado.Controllers
                 }
                 ViewData["TipoPapel"] = TipoPapel;
 
-                ViewBag.List = list;
+                ViewData["list"] = list;
                 return View(list);
             }
         }
@@ -53,90 +52,145 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Update(System.Web.Mvc.FormCollection collection)
         {
-            SolicitarPapel aux = new SolicitarPapel();
-            aux = aux.selectById(int.Parse(collection[0]));
-            List<TipoPapel> TipoPapel = new List<TipoPapel>();
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
 
-            TipoPapel = aux.GetTipoPapel();
+                return RedirectToAction("Index", "Login");
 
-            ViewData["TipoPapel"] = TipoPapel;
-            ViewData["SolicitarPapel"] = aux;
-            return View();
+            }
+
+            else
+            {
+                SolicitarPapel aux = new SolicitarPapel();
+                aux = aux.selectById(int.Parse(collection[0]));
+                List<TipoPapel> TipoPapel = new List<TipoPapel>();
+
+                TipoPapel = aux.GetTipoPapel();
+
+                ViewData["TipoPapel"] = TipoPapel;
+                ViewData["SolicitarPapel"] = aux;
+                return View();
+            }
         }
 
         [HttpPost]
         public ActionResult Delete(System.Web.Mvc.FormCollection collection)
         {
-            int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
-            SolicitarPapel aux = new SolicitarPapel();
-            bool result;
-            result = aux.DeleteSolicitarPapel(idToExclude);
-            if (result == true)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                TempData["notice"] = "inserted";
+
+                return RedirectToAction("Index", "Login");
+
             }
-            return RedirectToAction("Index");
+
+            else
+            {
+                int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
+                SolicitarPapel aux = new SolicitarPapel();
+                bool result;
+                result = aux.DeleteSolicitarPapel(idToExclude);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult Save(System.Web.Mvc.FormCollection collection)
         {
-            SolicitarPapel aux = new SolicitarPapel();
-            aux.IdTipo = int.Parse(collection[1]);
-            aux.Ids = int.Parse(Regex.Replace(collection[0], " ", ""));
-           
-            bool result = aux.Update(aux);
-            if (result == true)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                TempData["notice"] = "inserted";
+
+                return RedirectToAction("Index", "Login");
+
             }
-            return RedirectToAction("Index");
+
+            else
+            {
+                SolicitarPapel aux = new SolicitarPapel();
+                aux.IdTipo = int.Parse(collection[1]);
+                aux.Ids = int.Parse(Regex.Replace(collection[0], " ", ""));
+
+                bool result = aux.Update(aux);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult Insert(System.Web.Mvc.FormCollection collection)
         {
-            SolicitarPapel aux = new SolicitarPapel();
-            
-            aux.IdTipo = int.Parse(collection[1]);
-            
-            bool result;
-            result = aux.Insert(aux);
-            if (result == true)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                TempData["notice"] = "inserted";
+
+                return RedirectToAction("Index", "Login");
+
             }
-            return RedirectToAction("Index");
+
+            else
+            {
+                SolicitarPapel aux = new SolicitarPapel();
+
+                aux.IdTipo = int.Parse(collection[1]);
+
+                bool result;
+                result = aux.Insert(aux);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult Search(System.Web.Mvc.FormCollection collection)
         {
-            string tipoPapel = "";
-
-            if (collection[0] != "")
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                tipoPapel = collection[0];
-            }
-            SolicitarPapel aux = new SolicitarPapel();
-            List<SolicitarPapel> list = new List<SolicitarPapel>();
-            List<TipoPapel> TipoPapel = new List<TipoPapel>();
 
-            list = aux.GetSolicitarPapel(tipoPapel);
-            TipoPapel = aux.GetTipoPapel();
+                return RedirectToAction("Index", "Login");
 
-            if (TipoPapel.Count == 0)
-            {
-                ViewData["errorMsg"] = "É necessário o cadastro de ao menos um tipo de papel para realizar o cadastro de uma solicitação";
             }
+
             else
             {
-                ViewData["errorMsg"] = "";
-            }
-            ViewData["TipoPapel"] = TipoPapel;
+                string tipoPapel = "";
 
-            ViewBag.List = list;
-            return View(list);
+                if (collection[0] != "")
+                {
+                    tipoPapel = collection[0];
+                }
+                SolicitarPapel aux = new SolicitarPapel();
+                List<SolicitarPapel> list = new List<SolicitarPapel>();
+                List<TipoPapel> TipoPapel = new List<TipoPapel>();
+
+                list = aux.GetSolicitarPapel(tipoPapel);
+                TipoPapel = aux.GetTipoPapel();
+
+                if (TipoPapel.Count == 0)
+                {
+                    ViewData["errorMsg"] = "É necessário o cadastro de ao menos um tipo de papel para realizar o cadastro de uma solicitação";
+                }
+                else
+                {
+                    ViewData["errorMsg"] = "";
+                }
+                ViewData["TipoPapel"] = TipoPapel;
+
+                ViewBag.List = list;
+                return View(list);
+            }
         }
     }
 }
