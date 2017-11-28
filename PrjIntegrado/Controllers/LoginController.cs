@@ -33,9 +33,10 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult VerificaUsuarios(System.Web.Mvc.FormCollection collection)
         {
+            
             String UserName = (collection[0]);
             String Senha = (collection[1]);
-            
+
             Login aux = new Login();
             bool result;
             result = aux.VerificaUsuarios(UserName, Senha);
@@ -45,15 +46,16 @@ namespace PrjIntegrado.Controllers
             {
 
 
-                return RedirectToAction("Index", "Login", new { var = 1});
+                return RedirectToAction("Index", "Login", new { var = 1 });
 
             }
             else
             {
-                
+
                 Session["UsersOnline"] = UserName;
                 return RedirectToAction("Index", "RankingPerda", new { UserName = UserName });
             }
+    
         }
     }
 }

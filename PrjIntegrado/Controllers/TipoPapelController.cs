@@ -35,72 +35,127 @@ namespace PrjIntegrado.Controllers
         [HttpPost]
         public ActionResult Update(System.Web.Mvc.FormCollection collection)
         {
-            TipoPapel aux = new TipoPapel();
-            aux = aux.selectById(int.Parse(collection[0]));
-            ViewData["TipoPapel"] = aux;           
-            return View();
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
+
+                return RedirectToAction("Index", "Login");
+
+            }
+
+            else
+            {
+                TipoPapel aux = new TipoPapel();
+                aux = aux.selectById(int.Parse(collection[0]));
+                ViewData["TipoPapel"] = aux;
+                return View();
+            }
         }
 
         [HttpPost]
         public ActionResult Delete(System.Web.Mvc.FormCollection collection)
         {
-            int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
-            TipoPapel aux = new TipoPapel();
-            bool result;
-            result = aux.DeleteTipoPapel(idToExclude);
-            if (result == true)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                TempData["notice"] = "inserted";
+
+                return RedirectToAction("Index", "Login");
+
             }
+
             else
             {
-                TempData["notice"] = "error";
+                int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
+                TipoPapel aux = new TipoPapel();
+                bool result;
+                result = aux.DeleteTipoPapel(idToExclude);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
+                else
+                {
+                    TempData["notice"] = "error";
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Save(System.Web.Mvc.FormCollection collection)
         {
-            TipoPapel aux = new TipoPapel();
-            aux.Id = int.Parse(collection[0]);
-            aux.Tipo = collection[1];
-            aux.Tamanho = collection[2];
-            aux.Gramatura= int.Parse(collection[3]);
-           
-            bool result = aux.Update(aux);
-            if (result == true)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                TempData["notice"] = "inserted";
+
+                return RedirectToAction("Index", "Login");
+
             }
-            return RedirectToAction("Index");
+
+            else
+            {
+                TipoPapel aux = new TipoPapel();
+                aux.Id = int.Parse(collection[0]);
+                aux.Tipo = collection[1];
+                aux.Tamanho = collection[2];
+                aux.Gramatura = int.Parse(collection[3]);
+
+                bool result = aux.Update(aux);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult Insert(System.Web.Mvc.FormCollection collection)
         {
-            TipoPapel aux = new TipoPapel();
-            
-            aux.Tipo = collection[1];
-            aux.Tamanho = collection[2];
-            aux.Gramatura = int.Parse(collection[3]);
-            bool result;
-            result = aux.Insert(aux);
-            if (result == true)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                TempData["notice"] = "inserted";
+
+                return RedirectToAction("Index", "Login");
+
             }
-            return RedirectToAction("Index");
+
+            else
+            {
+                TipoPapel aux = new TipoPapel();
+
+                aux.Tipo = collection[1];
+                aux.Tamanho = collection[2];
+                aux.Gramatura = int.Parse(collection[3]);
+                bool result;
+                result = aux.Insert(aux);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult Search(System.Web.Mvc.FormCollection collection)
         {
-            TipoPapel aux = new TipoPapel();
-            List<TipoPapel> list = new List<TipoPapel>();
-            list = aux.getTipoPapel(collection[0]);
-            ViewBag.List = list;
-            return View(list);
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
+
+                return RedirectToAction("Index", "Login");
+
+            }
+
+            else
+            {
+                TipoPapel aux = new TipoPapel();
+                List<TipoPapel> list = new List<TipoPapel>();
+                list = aux.getTipoPapel(collection[0]);
+                ViewBag.List = list;
+                return View(list);
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace PrjIntegrado.Controllers
 {
     public class RankingPerdaController : Controller
     {
+
         // GET: RankingPerda
         public ActionResult Index()
         {
