@@ -10,6 +10,11 @@
     Layout = null;
 }
 @RenderPage("~/Views/Shared/Header.cshtml")
+<style type="text/css">
+    .spaced{
+        margin-left: 15%;
+    }
+</style>
 
 @RenderPage("~/Views/Shared/Menu.cshtml")
 @{
@@ -41,8 +46,8 @@
                                   }
                           });
 }
-<div class="h-100 align-items-center">
-    <div class="p">
+<div class="row spaced">
+    <div>
         <form action="@Url.Action("Filter", "RelatorioManutencao")" method="post" class="form-inline">
             <div class="form-group">
                 <label for="exibir">A partir de: </label>
@@ -59,15 +64,16 @@
                 <span class="glyphicon glyphicon-search"></span>
             </button>
         </form>
+    </div>
         @if ((string)ViewData["msg"] != null)
         {
             <script type="text/javascript">
                 alert("A pesquisa foi realizada com os parâmetros passados");
             </script>
         }
-    </div>
+   
     <canvas id="ranking" class="center-block col-md-8 fixed" class="right"></canvas>
+    <script src="~/Scripts/Chart.js"></script>
 </div>
-<script src="~/Scripts/Chart.js"></script>
 @Html.CreateChart("ranking", barChart)
 @RenderPage("~/Views/Shared/Footer.cshtml")

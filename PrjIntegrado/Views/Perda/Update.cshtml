@@ -38,7 +38,7 @@
                 <select name="tipo_papel" class="form-control" required>
                     @foreach (var tipo in tipo_papel)
                     {
-                        <option value="@tipo.Id">@tipo.Tipo</option>
+                        <option value="@tipo.Id">@tipo.Tipo - @tipo.Tamanho</option>
                     }
                 </select>
 

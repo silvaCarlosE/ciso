@@ -66,7 +66,14 @@
                             <tr>
                                 <td>@item.Quantidade</td>
                                 <td>@item.Data</td>
-                                <td>@item.Id_tipo_papel</td>
+                                @foreach (var tipo in tipo_papel)
+                                {
+                                    if (tipo.Id == item.Id_tipo_papel)
+                                    {
+                                        <td>@tipo.Tipo - @tipo.Tamanho </td>
+                                    }
+                                }
+                                
                                 <td>@item.Id_funcionario</td>
                                 <td style="text-align: center">
                                     <form action="@Url.Action("Update", "Perda", new {id = item.Id})" method="post">
@@ -109,7 +116,7 @@
                     <p class="alert alert-info">@ViewData["errorMsg"]</p>
                 }
                 
-                <form action="@Url.Action("Insert", "Perda")" method="POST" class="form-group" onsubmit="validate()">
+                <form action="@Url.Action("Insert", "Perda")" method="POST" class="form-group">
                     <div class="row">
                         <div class="col-md-6">
                             <!---OLAAA-->
@@ -128,7 +135,7 @@
                                 <select name="tipo_papel" class="form-control" required>
                                     @foreach (var tipo in tipo_papel)
                                     {
-                                        <option value="@tipo.Id">@tipo.Tipo</option>
+                                        <option value="@tipo.Id">@tipo.Tipo - @tipo.Tamanho</option>
                                     }
                                 </select>
 
