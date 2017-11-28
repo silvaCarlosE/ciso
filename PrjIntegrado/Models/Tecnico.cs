@@ -59,6 +59,12 @@ namespace PrjIntegrado.Models
         public bool DeleteTecnico(int id)
         {
             DbConnection dbConnection = new DbConnection();
+            string stmt = "SELECT * FROM MANUTENCOES WHERE ID_TECNICO = " + id;
+            var result = dbConnection.GenericQuery(stmt);
+            if (result.HasRows)
+            {
+                return false;
+            }
             string tableName = "tecnicos";
             string condition = " id_tecnico = " + (id.ToString());
             dbConnection.Delete(tableName, condition);

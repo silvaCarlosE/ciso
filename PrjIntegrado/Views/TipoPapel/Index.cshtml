@@ -18,7 +18,14 @@
         </div>
         @if (TempData["notice"] != null)
         {
-            <p class="alert alert-info"> Operação concluída. </p>
+            if (TempData["notice"] == "error")
+            {
+                <p class="alert alert-danger"> O tipo de papel não pôde ser deletado pois pode estar ligado com algum: solicitação papel, compra de papel ou perda de papel. </p>
+            }
+            else
+            {
+                <p class="alert alert-info"> Operação concluída. </p>
+            }
         }
         <form action="@Url.Action("Search", "TipoPapel")" method="post">
             <div class="input col-md-3">
@@ -90,7 +97,7 @@
                 <h4 class="modal-title">Adicionar Tipo Papel</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action("Insert", "TipoPapel")" method="POST" class="form-group" onsubmit="validate()">
+                <form action="@Url.Action("Insert", "TipoPapel")" method="POST" class="form-group">
                     <div class="row">
                         <div class="col-md-6">
                             <img src="~/Img/papel-icone.png" width="70%" />

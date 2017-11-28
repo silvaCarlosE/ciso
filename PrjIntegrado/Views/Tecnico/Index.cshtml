@@ -18,7 +18,14 @@
         </div>
         @if (TempData["notice"] != null)
         {
-            <p class="alert alert-info"> Operação concluída. </p>
+            if (TempData["notice"] == "error")
+            {
+                <p class="alert alert-danger"> O técnico não pode ser deletado pois ele está ligado a uma manutenção. </p>
+            }
+            else
+            {
+                <p class="alert alert-info"> Operação concluída. </p>
+            }
         }
         <form action="@Url.Action("Search", "Tecnico")" method="post">
             <div class="input col-md-3">
