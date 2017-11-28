@@ -16,6 +16,8 @@ namespace PrjIntegrado.Controllers
         // GET: Manutencao
         public ActionResult Index(String var)
         {
+            
+            Session.Remove("UsersOnline");
             if (var == null)
             {
                 ViewData["errorMsg"] = 2;
