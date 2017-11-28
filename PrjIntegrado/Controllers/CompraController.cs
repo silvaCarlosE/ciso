@@ -113,5 +113,32 @@ namespace PrjIntegrado.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult Search(System.Web.Mvc.FormCollection collection)
+        {
+            string data = "";
+            if (collection[0] != "")
+            {
+                data = collection[0];
+            }
+            Compra aux = new Compra();
+            List<Compra> list = new List<Compra>();
+            list = aux.getCompra(data);
+            ViewData["list"] = list;
+
+            TipoPapel auxTipo = new TipoPapel();
+
+            List<TipoPapel> tiposPapel = new List<TipoPapel>();
+            tiposPapel = auxTipo.getTipoPapel();
+            ViewData["tiposPapel"] = tiposPapel;
+
+            SolicitarPapel auxSol = new SolicitarPapel();
+            List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
+            solicitacoes = auxSol.GetSolicitarPapel();
+            ViewData["solicitacoes"] = solicitacoes;
+
+            return View(list);
+        }
     }
 }

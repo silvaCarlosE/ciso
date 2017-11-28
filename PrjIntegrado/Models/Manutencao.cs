@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -30,7 +31,8 @@ namespace PrjIntegrado.Models
                     Manutencao aux = new Manutencao();
                     aux.Id = result.GetInt32(0);
                     aux.Defeito = result.GetString(1);
-                    aux.Data = result.GetString(2);
+                    DateTime dt = DateTime.ParseExact(result.GetString(2), "yyyy-MM-d", CultureInfo.InvariantCulture);
+                    aux.Data = dt.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                     aux.Id_tecnico = result.GetInt32(3);
                     aux.Id_impressora = result.GetInt32(4);
                     aux.Valor_gasto = result.GetDouble(5);
@@ -54,7 +56,8 @@ namespace PrjIntegrado.Models
                     Manutencao aux = new Manutencao();
                     aux.Id = result.GetInt32(0);
                     aux.Defeito = result.GetString(1);
-                    aux.Data = result.GetString(2);
+                    DateTime dt = DateTime.ParseExact(result.GetString(2), "yyyy-MM-d", CultureInfo.InvariantCulture);
+                    aux.Data = dt.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                     aux.Id_tecnico = result.GetInt32(3);
                     aux.Id_impressora = result.GetInt32(4);
                     aux.Valor_gasto = result.GetDouble(5);

@@ -19,9 +19,7 @@ namespace PrjIntegrado.Controllers
             string auxsessao = (string)(Session["UsersOnline"]);
             if (auxsessao == null)
             {
-
                 return RedirectToAction("Index", "Login");
-
             }
 
             else
@@ -108,6 +106,27 @@ namespace PrjIntegrado.Controllers
                 TempData["notice"] = "inserted";
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Search(System.Web.Mvc.FormCollection collection)
+        {
+            string name = "";
+            if (collection[0] != null)
+            {
+                name = collection[0];
+            }            
+            Funcionario aux = new Funcionario();
+            List<Funcionario> list = new List<Funcionario>();
+            list = aux.getFuncionarios(name);
+            ViewData["list"] = list;
+
+            Loja auxLoja = new Loja();
+
+            List<Loja> listaLojas = new List<Loja>();
+            listaLojas = auxLoja.getLojas();
+            ViewData["listaLojas"] = listaLojas;
+
+            return View(list);
         }
     }
 }

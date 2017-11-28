@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.Windows.Forms;
 
 namespace PrjIntegrado.Models
 {
@@ -21,6 +23,32 @@ namespace PrjIntegrado.Models
             string tableName = "papel_comprado";
             string fields = " id_compra, id_solicitacao, quantidade, id_tipo_papel, DATE_FORMAT(data_compra, '%Y-%m-%d'), valor_gasto";
             var result = dbConnection.Select(tableName, fields);
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    Compra aux = new Compra();
+                    aux.CompraID = result.GetInt32(0);
+                    aux.SolicitacaoID = result.GetInt32(1);
+                    aux.Quantidade = result.GetInt32(2);
+                    aux.IdTipoPapel = result.GetInt32(3);
+                    DateTime dt = DateTime.ParseExact(result.GetString(4), "yyyy-MM-d", CultureInfo.InvariantCulture);
+                    string data = dt.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    aux.Data = data;
+                    aux.Valor = result.GetFloat(5);
+                    compras.Add(aux);
+                }
+            }
+            return compras;
+        }
+
+        public List<Compra> getCompra(string data)
+        {
+            DbConnection dbConnection = new DbConnection();
+            List<Compra> compras = new List<Compra>();
+            string tableName = "papel_comprado";
+            string like = " data_compra >= '" + data + "'";
+            var result = dbConnection.Search(tableName, like);
             if (result.HasRows)
             {
                 while (result.Read())

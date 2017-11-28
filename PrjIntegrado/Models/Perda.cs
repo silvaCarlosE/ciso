@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Windows.Forms;
@@ -29,7 +30,8 @@ namespace PrjIntegrado.Models
                     Perda aux = new Perda();
                     aux.Id = result.GetInt32(0);
                     aux.Quantidade = result.GetInt32(1);
-                    aux.Data = result.GetString(2);
+                    DateTime dt = DateTime.ParseExact(result.GetString(2), "yyyy-MM-d", CultureInfo.InvariantCulture);
+                    aux.Data = dt.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                     aux.Id_tipo_papel = result.GetInt32(3);
                     aux.Id_funcionario = result.GetInt32(4);
                     perdas.Add(aux);

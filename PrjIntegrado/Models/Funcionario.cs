@@ -32,8 +32,29 @@ namespace PrjIntegrado.Models
                     aux.Nome = result.GetString(1);
                     aux.Cargo = result.GetString(2);
                     aux.CPF = result.GetString(3);
+                    aux.LojaFuncionarioID = result.GetString(4);
+                    funcionarios.Add(aux);
+                }
+            }
+            return funcionarios;
+        }
 
-                    //Arrumar
+        public List<Funcionario> getFuncionarios(string name)
+        {
+            DbConnection dbConnection = new DbConnection();
+            List<Funcionario> funcionarios = new List<Funcionario>();
+            string tableName = "funcionarios";
+            string like = " nome LIKE '%" + name + "%'";
+            var result = dbConnection.Search(tableName, like);
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    Funcionario aux = new Funcionario();
+                    aux.FuncionarioID = result.GetInt32(0);
+                    aux.Nome = result.GetString(1);
+                    aux.Cargo = result.GetString(2);
+                    aux.CPF = result.GetString(3);
                     aux.LojaFuncionarioID = result.GetString(4);
                     funcionarios.Add(aux);
                 }
