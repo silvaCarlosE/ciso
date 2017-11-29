@@ -67,7 +67,8 @@ namespace PrjIntegrado.Models
             }
             string tableName = "tecnicos";
             string condition = " id_tecnico = " + (id.ToString());
-            dbConnection.Delete(tableName, condition);
+            DbConnection dbConnection1 = new DbConnection();
+            dbConnection1.Delete(tableName, condition);
             return true;
         }
 

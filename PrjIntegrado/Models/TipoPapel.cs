@@ -63,17 +63,18 @@ namespace PrjIntegrado.Models
 
         public bool DeleteTipoPapel(int id)
         {
-            DbConnection dbConnection = new DbConnection();
+            DbConnection dbConnectionX = new DbConnection();
             string tableName = "tipo_papel";
             string condition = " id_tipo_papel = " + (id.ToString());
             string stmt = "SELECT * FROM papel_comprado WHERE id_tipo_papel = " + id;
-            var result = dbConnection.GenericQuery(stmt);            
+            var result = dbConnectionX.GenericQuery(stmt);            
             stmt = "SELECT * FROM perdas WHERE id_tipo_papel = " + id;
             DbConnection dbConnection1 = new DbConnection();
             var result1 = dbConnection1.GenericQuery(stmt);
             stmt = "SELECT * FROM solicitacoes_papel WHERE id_tipo_papel = " + id;
             DbConnection dbConnection2 = new DbConnection();
             var result2 = dbConnection2.GenericQuery(stmt);
+            DbConnection dbConnection = new DbConnection();
             if (result.HasRows || result1.HasRows || result2.HasRows)
             {
                 return false;

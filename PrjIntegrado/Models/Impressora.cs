@@ -63,6 +63,13 @@ namespace PrjIntegrado.Models
 
         public bool DeleteImpressora(int id)
         {
+            DbConnection dbConnection1 = new DbConnection();
+            string stmt = "SELECT * FROM manutencoes WHERE id_impressora = " + id;
+            var result = dbConnection1.GenericQuery(stmt);
+            if (result.HasRows)
+            {
+                return false;
+            }
             DbConnection dbConnection = new DbConnection();
             string tableName = "impressoras";
             string condition = " id_impressora = " + (id.ToString());

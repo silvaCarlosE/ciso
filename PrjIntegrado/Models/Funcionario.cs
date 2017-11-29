@@ -105,9 +105,16 @@ namespace PrjIntegrado.Models
 
         public bool Delete(int id)
         {
-            DbConnection dbConnection = new DbConnection();
+            DbConnection dbConnectionX = new DbConnection();
+            string stmt = "SELECT * FROM PERDAS WHERE id_func = " + id;
+            var result = dbConnectionX.GenericQuery(stmt);
+            if (result.HasRows)
+            {
+                return false;
+            }
             string tableName = "funcionarios";
             string condition = " id_func = " + (id.ToString());
+            DbConnection dbConnection = new DbConnection();
             dbConnection.Delete(tableName, condition);
             return true;
         }

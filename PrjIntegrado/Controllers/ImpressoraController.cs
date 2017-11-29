@@ -79,6 +79,10 @@ namespace PrjIntegrado.Controllers
                 {
                     TempData["notice"] = "inserted";
                 }
+                else
+                {
+                    TempData["notice"] = "error";
+                }
                 ViewData["actionResult"] = result;
                 return RedirectToAction("Index");
             }
