@@ -18,11 +18,14 @@
 
 <form action="@Url.Action("Save", "Impressora")" method="POST" class="form-group" id="editing">
     <div class="row">
+        <div class="col-md-6">
+            <h4 style="margin-left:10%">EDIÇÃO DE IMPRESSORA</h4>
+        </div>
         <div class="col-md-6" style="float:right; margin-top:5%">
             <img src="~/Img/impressora-icone.jpg" width="20%" />
         </div>
         <div class="form-group">
-            <div class="col-md-6" style="margin-top: -10%;margin-left:10%">
+            <div class="col-md-6" style="margin-top: -11%;margin-left:5%">
                 <input type="hidden" id="edit-id" name="id_impressora" value="@aux.Id">
                 <label for="nome">Nome</label>
                 <input class="form-control" required maxlength="45" type="text" name="nome" value="@aux.Nome" maxlength="20">
@@ -42,9 +45,9 @@
             <br><br>
         </div>
     </div>
-    <div class="padding" style="margin-left: 33%">
+    <div class="padding" style="margin-left: 23%; margin-top: 3%">
         <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
-        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn" data-dismiss="modal"onclick="@("window.location.href='" + @Url.Action("Index", "Impressora") + "'");">Cancelar</button>
     </div>
 </form>
 @RenderPage("~/Views/Shared/Footer.cshtml")

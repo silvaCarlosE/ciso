@@ -16,12 +16,15 @@
 @RenderPage("~/Views/Shared/Menu.cshtml")
 <form action="@Url.Action("Save", "Funcionario")" method="POST" class="form-group">
     <div class="row padding">
+        <div class="col-md-6">
+            <h4 style="margin-left:10%">EDIÇÃO DE FUNCIONÁRIO</h4>
+        </div>
         <div class="col-md-6"style="float:right; margin-top:5%">
             
-            <img src="~/Img/funcionario.png" width="30%" />
+            <img src="~/Img/funcionario.png" width="20%" />
         </div>
         <div class="form-group">
-            <div class="col-md-8" style="margin-top: -20%;margin-left:23%">
+            <div class="col-md-8" style="margin-top: -16%;margin-left:22%">
                 <input type="hidden" id="edit-func" name="id_func" value="@aux.FuncionarioID">
                 <label for="nome">Nome</label>
                 <input class="form-control" required maxlength="45" type="text" name="nome" value="@aux.Nome">
@@ -41,7 +44,7 @@
             <br><br>
         </div>
     </div>
-    <div class="padding" style="margin-left: 29%">
+    <div class="padding" style="margin-left: 22.5%; margin-top:3%">
         <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
         <button type="button" class="btn" data-dismiss="modal" onclick="@("window.location.href='" + @Url.Action("Index", "Funcionario") + "'");">Cancelar</button>
     </div>

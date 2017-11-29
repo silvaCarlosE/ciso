@@ -165,14 +165,21 @@ namespace PrjIntegrado.Controllers
 
             else
             {
+                string tipo = collection[0];
+                SolicitarPapel aux = new SolicitarPapel();
+                List<SolicitarPapel> list = new List<SolicitarPapel>();
+                list = aux.GetSolicitarPapel(tipo);
+                ViewBag.List = list;
+                ViewData["SolicitarPapel"] = list;
+                ViewData["msg"] = "A busca foi feita com os parâmetros solicitados.";
+                
                 string tipoPapel = "";
 
                 if (collection[0] != "")
                 {
                     tipoPapel = collection[0];
                 }
-                SolicitarPapel aux = new SolicitarPapel();
-                List<SolicitarPapel> list = new List<SolicitarPapel>();
+                
                 List<TipoPapel> TipoPapel = new List<TipoPapel>();
 
                 list = aux.GetSolicitarPapel(tipoPapel);

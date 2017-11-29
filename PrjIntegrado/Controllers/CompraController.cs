@@ -45,8 +45,18 @@ namespace PrjIntegrado.Controllers
             }
         }
 
-            [HttpPost]
-            public ActionResult Create(System.Web.Mvc.FormCollection collection)
+        [HttpPost]
+        public ActionResult Create(System.Web.Mvc.FormCollection collection)
+        {
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
+
+                return RedirectToAction("Index", "Login");
+
+            }
+
+            else
             {
                 Compra compra = new Compra();
                 compra.SolicitacaoID = int.Parse(collection[1]);
@@ -61,84 +71,129 @@ namespace PrjIntegrado.Controllers
                 }
                 return RedirectToAction("Index");
             }
+        }
 
         [HttpPost]
         public ActionResult Update(System.Web.Mvc.FormCollection collection)
         {
-            Compra aux = new Compra();
-            aux = aux.selectById(int.Parse(collection[0]));
-            List<TipoPapel> tiposPapel = new List<TipoPapel>();
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
+            {
 
-            TipoPapel tipoPapel = new TipoPapel();
-            tiposPapel = tipoPapel.getTipoPapel();
+                return RedirectToAction("Index", "Login");
 
-            SolicitarPapel solicitar = new SolicitarPapel();
-            List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
-            solicitacoes = solicitar.GetSolicitarPapel();
+            }
 
-            ViewData["solicitacoes"] = solicitacoes;
-            ViewData["tiposPapel"] = tiposPapel;
-            ViewData["aux"] = aux;
-            return View();
+            else
+            {
+                Compra aux = new Compra();
+                aux = aux.selectById(int.Parse(collection[0]));
+                List<TipoPapel> tiposPapel = new List<TipoPapel>();
+
+                TipoPapel tipoPapel = new TipoPapel();
+                tiposPapel = tipoPapel.getTipoPapel();
+
+                SolicitarPapel solicitar = new SolicitarPapel();
+                List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
+                solicitacoes = solicitar.GetSolicitarPapel();
+
+                ViewData["solicitacoes"] = solicitacoes;
+                ViewData["tiposPapel"] = tiposPapel;
+                ViewData["aux"] = aux;
+                return View();
+            }
         }
 
         [HttpPost]
         public ActionResult Save(System.Web.Mvc.FormCollection collection)
         {
-            Compra aux = new Compra();
-            aux.CompraID = int.Parse(collection[0]);
-            aux.SolicitacaoID = int.Parse(collection[1]);
-            aux.Quantidade = int.Parse(collection[2]);
-            aux.IdTipoPapel = int.Parse(collection[3]);
-            aux.Data = collection[4];
-            aux.Valor = float.Parse(collection[5]);
-            bool result = aux.Save(aux);
-            if (result == true)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                TempData["notice"] = "inserted";
+
+                return RedirectToAction("Index", "Login");
+
             }
-            return RedirectToAction("Index");
+
+            else
+            {
+                Compra aux = new Compra();
+                aux.CompraID = int.Parse(collection[0]);
+                aux.SolicitacaoID = int.Parse(collection[1]);
+                aux.Quantidade = int.Parse(collection[2]);
+                aux.IdTipoPapel = int.Parse(collection[3]);
+                aux.Data = collection[4];
+                aux.Valor = float.Parse(collection[5]);
+                bool result = aux.Save(aux);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult Delete(System.Web.Mvc.FormCollection collection)
         {
-            int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
-            Compra aux = new Compra();
-            bool result;
-            result = aux.Delete(idToExclude);
-            if (result == true)
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                TempData["notice"] = "inserted";
+
+                return RedirectToAction("Index", "Login");
+
             }
-            return RedirectToAction("Index");
+
+            else
+            {
+                int idToExclude = int.Parse(Regex.Replace(collection[0], ",", ""));
+                Compra aux = new Compra();
+                bool result;
+                result = aux.Delete(idToExclude);
+                if (result == true)
+                {
+                    TempData["notice"] = "inserted";
+                }
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult Search(System.Web.Mvc.FormCollection collection)
         {
-            string data = "";
-            if (collection[0] != "")
+            string auxsessao = (string)(Session["UsersOnline"]);
+            if (auxsessao == null)
             {
-                data = collection[0];
+
+                return RedirectToAction("Index", "Login");
+
             }
-            Compra aux = new Compra();
-            List<Compra> list = new List<Compra>();
-            list = aux.getCompra(data);
-            ViewData["list"] = list;
 
-            TipoPapel auxTipo = new TipoPapel();
+            else
+            {
+                string data = "";
+                if (collection[0] != "")
+                {
+                    data = collection[0];
+                }
+                Compra aux = new Compra();
+                List<Compra> list = new List<Compra>();
+                list = aux.getCompra(data);
+                ViewData["list"] = list;
 
-            List<TipoPapel> tiposPapel = new List<TipoPapel>();
-            tiposPapel = auxTipo.getTipoPapel();
-            ViewData["tiposPapel"] = tiposPapel;
+                TipoPapel auxTipo = new TipoPapel();
 
-            SolicitarPapel auxSol = new SolicitarPapel();
-            List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
-            solicitacoes = auxSol.GetSolicitarPapel();
-            ViewData["solicitacoes"] = solicitacoes;
+                List<TipoPapel> tiposPapel = new List<TipoPapel>();
+                tiposPapel = auxTipo.getTipoPapel();
+                ViewData["tiposPapel"] = tiposPapel;
 
-            return View(list);
+                SolicitarPapel auxSol = new SolicitarPapel();
+                List<SolicitarPapel> solicitacoes = new List<SolicitarPapel>();
+                solicitacoes = auxSol.GetSolicitarPapel();
+                ViewData["solicitacoes"] = solicitacoes;
+
+                return View(list);
+            }
         }
     }
 }
