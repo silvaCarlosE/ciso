@@ -10,7 +10,11 @@
     Layout = null;
 }
 @RenderPage("~/Views/Shared/Header.cshtml")
-
+<style type="text/css">
+    .spaced {
+        margin-left: 30%;
+    }
+</style>
 @RenderPage("~/Views/Shared/Menu.cshtml")
 @{
     ViewBag.Title = "Relatório de manutenções";
@@ -41,8 +45,8 @@
                                   }
                           });
 }
-<div class="h-100 align-items-center">
-    <div class="">
+<div class="row">
+    <div>
         <form action="@Url.Action("Filter", "RelatorioPerda")" method="post" class="form-inline spaced">
             <div class="form-group">
                 <label for="exibir">A partir de: </label>
@@ -58,8 +62,8 @@
                 alert("A pesquisa foi realizada com os parâmetros passados");
             </script>
         }
-    </div>
-    <canvas id="ranking" class="center-block col-md-8 fixed" class="right"></canvas>
+        <canvas id="ranking" class="center-block col-md-8 fixed" class="right"></canvas>
+    </div>    
 </div>
 <script src="~/Scripts/Chart.js"></script>
 @Html.CreateChart("ranking", barChart)

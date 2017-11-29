@@ -9,7 +9,11 @@
     Layout = null;
 }
 @RenderPage("~/Views/Shared/Header.cshtml")
-
+<style type="text/css">
+    .spaced {
+        margin-left: 10%;
+    }
+</style>
 @RenderPage("~/Views/Shared/Menu.cshtml")
 @{
     ViewBag.Title = "Relatório de gastos";
@@ -41,25 +45,27 @@
                           });
 }
 
-<div class="h-100 align-items-center">
-    <form action="@Url.Action("Filter", "RelatorioGastos")" method="post" class="form-inline">
-        <div class="form-group">
-            <label for="exibir">A partir de: </label>
-            <input type="date" name="a-partir" class="form-control" />
-        </div>
-        <button type="submit" name="pesquisar" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span>
-        </button>
-    </form>    
-    <canvas id="ranking" class="center-block col-md-8 fixed" class="right"></canvas>
-    @if ((string)ViewData["msg"] != null)
-    {
-        <script type="text/javascript">
-            alert("A pesquisa foi realizada com os parâmetros passados");
-        </script>
-    }
+<div class="row spaced">
+    <div>
+        <form action="@Url.Action("Filter", "RelatorioGastos")" method="post" class="form-inline spaced">
+            <div class="form-group">
+                <label for="exibir">A partir de: </label>
+                <input type="date" name="a-partir" class="form-control" />
+            </div>
+            <button type="submit" name="pesquisar" class="btn btn-primary">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </form>
+        <canvas id="ranking" class="center-block col-md-8 fixed" class="right"></canvas>
+        @if ((string)ViewData["msg"] != null)
+        {
+            <script type="text/javascript">
+                alert("A pesquisa foi realizada com os parâmetros passados");
+            </script>
+        }
+        <script src="~/Scripts/Chart.js"></script>
+    </div>
 </div>
-<script src="~/Scripts/Chart.js"></script>
 @Html.CreateChart("ranking", barChart)
 @RenderPage("~/Views/Shared/Footer.cshtml")
 
