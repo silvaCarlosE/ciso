@@ -19,14 +19,16 @@
 @RenderPage("~/Views/Shared/Menu.cshtml")
 <form action="@Url.Action("Save", "SolicitarPapel")" method="POST" class="form-group" onsubmit="validate()">
     <div class="row">
-        <h4>SOLICITAÇÃO DE PAPEL</h4>
-        <hr>
+        <div class="col-md-6">
+        <h4 style="margin-left:10%">EDIÇÃO DE SOLICITAÇÃO DE PAPEL</h4>
+        </div>
         <div class="col-md-6" style="float:right; margin-top:5%">
+
             <img src="~/Img/papel-icone.png" width="20%" />
         </div>
         <div class="form-group">
-            <div class="col-md-6" style="margin-top: -8%;margin-left:10%">
-                
+            <div class="col-md-6" style="margin-top: -10%;margin-left:5%">
+
                 <input type="hidden" id="edit-solicitacao" name="id_solicitacao" value="@aux.Ids">
                 <select name="tipo" class="form-control" required selected="@aux.IdTipo">
                     @foreach (var tipo_papel in TipoPapel)
@@ -39,7 +41,7 @@
             <br><br>
         </div>
     </div>
-    <div class="padding" style="margin-left: 33%; margin-top: -5%">
+    <div class="padding" style="margin-left: 23%; margin-top: -7%">
         <input type="submit" name="cadastrar" value="Salvar" class="btn btn-info">
         <button type="button" class="btn" data-dismiss="modal" onclick="@("window.location.href='" + @Url.Action("Index", "SolicitarPapel") + "'");">Cancelar</button>
     </div>
